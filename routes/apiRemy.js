@@ -1,32 +1,29 @@
 const express = require('express');
 const router = express.Router();
-import { HttpsProxyAgent } from 'https-proxy-agent';
+const axios = require('axios'); // Utilisez la bibliothèque 'axios' pour effectuer des requêtes HTTP
 
-const proxyUrl = 'http://fixie:kmzzVSUwFDuEsju@velodrome.usefixie.com:80';
-
-stats = {} 
+const proxyUrl = 'http://fixie:kmzzVSUwFDuEsju@velodrome.usefixie.com:80'; // Remplacez par l'URL du proxy Fixie Sock
+const apiKey = 'REDACTED_API_KEY'; // Remplacez par votre clé d'API Brawl Stars
 
 router.get('/', async (req, res) => {
-
    try {
-       const response = await fetch("https://api.brawlstars.com/v1/players/%23VUGVJYUY", {
-           method: 'GET',
+       const response = await axios.get("https://api.brawlstars.com/v1/players/%23VUGVJYUY", {
            headers: {
-               Authorization: 'Bearer REDACTED_API_KEY' ,
+               Authorization: `Bearer ${apiKey}`,
                Accept: 'application/json'
            },
-           agent: new HttpsProxyAgent(proxyUrl)
+           proxy: {
+               host: proxyUrl,
+               port: 80, // Port HTTP du proxy
+           }
        });
-       stats = await response.json();
-
+       const stats = response.data;
+       console.log(stats);
+       res.render('vue', { data: stats });
    } catch (error) {
        console.error(error);
-      res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
+       res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
    }
-
-   console.log(stats);
-
-  res.render('vue',{data:stats});
 });
 
 module.exports = router;
