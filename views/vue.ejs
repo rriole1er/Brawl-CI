@@ -1,32 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Données du joueur</title>
-</head>
+<%- include('header.html') %>
+
 <body>
-    <h1>Données du joueur Brawl Stars</h1>
-    <ul>
+    
 
-        <li> Blaze : <%=data.name%> </li>
-        <li> TAG : <%=data.tag%></li>
-        <li> TROPHEES : <%=data.trophies%></li> 
-        <li> ++ TROPHIES : <%=data.highestTrophies%> </li>
-        <li> 3vs3 victoire : <%=data['3vs3Victories']%> </li>
-        <li> Solo Showdown top1 : <%=data.soloVictories%> </li>
-        <li> Duo Showdown top1 : <%=data.duoVictories%> </li>
+    <div class="container">
+        <h1>Données de <%=data.name%> </h1> <h3>(<%=data.tag%>)</h3>
+        <div class="character-container">
+            <div class="character">
+                <h3> TROPHEES : <%=data.trophies%></p> 
+                <p> ++ TROPHIES : <%=data.highestTrophies%> </p>
+                <p> 3vs3 victoire : <%=data['3vs3Victories']%> </p>
+                <p> Solo Showdown top1 : <%=data.soloVictories%> </p>
+                <p> Duo Showdown top1 : <%=data.duoVictories%> </h3  >
+            </div>
+        </div>
+    </div>
 
-        
-    </ul>
-    <h2>Brawlers:</h2>
-    <ul>
+
+    
+    <div class="container">
+        <h2>Brawlers:</h2>
+        <div class="character-container">
+            <div class="character">
         <% data.brawlers.forEach(function(brawler) { %>
             <li>
                 Nom: <%= brawler.name %>, Trophées: <%= brawler.trophies %>
             </li>
         <% }); %>
     </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html
