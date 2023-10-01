@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Présentation de notre site Brawl Stars</title>
+    <title>Brawl Life</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,10 +18,14 @@
             color: #fff;
             padding: 20px;
             text-align: center;
+            display: flex; /* Utilisez Flexbox pour aligner horizontalement les éléments */
+            align-items: center; /* Alignez verticalement les éléments au centre */
+            justify-content: center; /* Alignez horizontalement les éléments au centre */
         }
 
         h1 {
             font-size: 24px;
+            margin-left: 10px; /* Marge à gauche pour séparer l'image du texte */
         }
 
         .container {
@@ -47,11 +51,17 @@
             border-radius: 10px;
             cursor: pointer;
         }
+
+        .container img:hover {
+            transform: scale(1.1); /* Augmentez la taille de 10% */
+            transition: transform 0.3s ease; /* Ajoutez une transition fluide */
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Brawl Life</h1>
+        <a href="/"> <img src="/logo-Brawl-Life3.png" alt="Logo" style="max-width: 75px;"></a> <!-- Ajustez la largeur de l'image ici -->
+        <a href="/" style="text-decoration:none; color: white;"><h1>Brawl Life</h1></a>
     </header>
 </body>
 </html>
