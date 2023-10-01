@@ -1,37 +1,20 @@
-const express = require('express')
-const app = express()
-const port = 3000
-let ejs = require('ejs');
+const express = require('express');
+const app = express();
+const port = 3000;
+const ejs = require('ejs');
+const mainRoutes = require('./routes/main'); // Importez le routeur principal
+const apiRemyRoutes = require('./routes/apiRemy');   // Importez le routeur API
+const apiLucasRoutes = require('./routes/apiLucas');   // Importez le routeur API
+
+
+app.use(express.static(__dirname + '/src'));
+
 app.set('view engine', 'ejs');
 
-
-
-stats = {} 
-
-app.get('/', async (req, res) => {
-  res.render('vue');
-});
-
-app.get('/api', async (req, res) => {
-
-   try {
-       const response = await fetch("https://api.brawlstars.com/v1/players/%23VUGVJYUY", {
-           method: 'GET',
-           headers: {
-               Authorization: 'Bearer REDACTED_API_KEY',
-               Accept: 'application/json'
-           }
-       });
-       stats = await response.json();
-
-   } catch (error) {
-       console.error(error);
-      res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
-   }
-
-  res.render('vue',{data:stats});
-});
+app.use('/', mainRoutes); // Utilisez le routeur principal pour les routes principales
+app.use('/remy', apiRemyRoutes);  // Utilisez le routeur API pour les routes API
+app.use('/lucas', apiLucasRoutes);  // Utilisez le routeur API pour les routes API
 
 app.listen(port, () => {
-  console.log(`Example app listening don port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});

@@ -1,0 +1,67 @@
+<!-- header.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brawl Life</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            display: flex; /* Utilisez Flexbox pour aligner horizontalement les éléments */
+            align-items: center; /* Alignez verticalement les éléments au centre */
+            justify-content: center; /* Alignez horizontalement les éléments au centre */
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-left: 10px; /* Marge à gauche pour séparer l'image du texte */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .character-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .character {
+            text-align: center;
+        }
+
+        .character img {
+            max-width: 200px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .container img:hover {
+            transform: scale(1.1); /* Augmentez la taille de 10% */
+            transition: transform 0.3s ease; /* Ajoutez une transition fluide */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/"> <img src="/logo-Brawl-Life3.png" alt="Logo" style="max-width: 75px;"></a> <!-- Ajustez la largeur de l'image ici -->
+        <a href="/" style="text-decoration:none; color: white;"><h1>Brawl Life</h1></a>
+    </header>
+</body>
+</html>
