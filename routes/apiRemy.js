@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
        const response = await fetch("https://api.brawlstars.com/v1/players/%23VUGVJYUY", {
            method: 'GET',
            headers: {
-               Authorization: 'Bearer REDACTED_API_KEY',
+               Authorization: 'Bearer REDACTED_API_KEY' ,
                Accept: 'application/json'
            }
        });
