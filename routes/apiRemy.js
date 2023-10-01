@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios'); // Utilisez la bibliothèque 'axios' pour effectuer des requêtes HTTP
 
-const proxyUrl = 'http://fixie:kmzzVSUwFDuEsju@velodrome.usefixie.com:80'; // Remplacez par l'URL du proxy Fixie Sock
+const proxyUrl = 'http://fixie:kmzzVSUwFDuEsju@velodrome.usefixie.com'; // Remplacez par l'URL du proxy Fixie Sock
 const apiKey = 'REDACTED_API_KEY'; // Remplacez par votre clé d'API Brawl Stars
 
 router.get('/', async (req, res) => {
