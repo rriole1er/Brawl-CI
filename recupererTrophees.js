@@ -5,7 +5,7 @@ async function obtenirTrophees(tagJoueur) {
     const reponse = await fetch(`https://api.brawlstars.com/v1/players/${tagJoueur}`, {
         method: 'GET',
         headers: {
-            Authorization: 'Bearer REDACTED_API_KEY',
+            Authorization: 'Bearer REDACTED_API_KEY ',
             Accept: 'application/json'
         }
     });
@@ -53,7 +53,7 @@ async function obtenirTrophees2(tagJoueur) {
     const reponse = await fetch(`https://api.brawlstars.com/v1/players/${tagJoueur}`, {
         method: 'GET',
         headers: {
-            Authorization: 'Bearer REDACTED_API_KEY',
+            Authorization: 'Bearer REDACTED_API_KEY ',
             Accept: 'application/json'
         }
     });
