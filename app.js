@@ -1,37 +1,20 @@
-const express = require('express')
-const app = express()
-const port = 3000
-let ejs = require('ejs');
+const express = require('express');
+const app = express();
+const port = 3000;
+const ejs = require('ejs');
+const mainRoutes = require('./routes/main'); // Importez le routeur principal
+const apiRemyRoutes = require('./routes/apiRemy');   // Importez le routeur API
+const apiLucasRoutes = require('./routes/apiLucas');   // Importez le routeur API
+
+
+app.use(express.static(__dirname + '/src'));
+
 app.set('view engine', 'ejs');
 
-
-
-stats = {} 
-
-app.get('/', async (req, res) => {
-  res.render('vue');
-});
-
-app.get('/api', async (req, res) => {
-
-   try {
-       const response = await fetch("https://api.brawlstars.com/v1/players/%23VUGVJYUY", {
-           method: 'GET',
-           headers: {
-               Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImQ3ODRlOTJjLTk3YzctNDZhYi1hNmRhLTFiMjI2YTU1ZWQ2NiIsImlhdCI6MTY5NjE1NDE1Miwic3ViIjoiZGV2ZWxvcGVyL2NiYmIwMjA0LWNlNWUtY2UwMS1kMDAzLTIzNDgzZjFhNzg3MyIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiODkuODEuMTQwLjU3IiwiODkuODQuMjAxLjIyIl0sInR5cGUiOiJjbGllbnQifV19.O_BWITirMh8Jhz--h1Gl34Jy4Ns3R2Uow9C45i3agSh58C6ZN65lFxG68JleMhVFA9lLYZulv1QOjIMUwYvAIA',
-               Accept: 'application/json'
-           }
-       });
-       stats = await response.json();
-
-   } catch (error) {
-       console.error(error);
-      res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
-   }
-
-  res.render('vue',{data:stats});
-});
+app.use('/', mainRoutes); // Utilisez le routeur principal pour les routes principales
+app.use('/remy', apiRemyRoutes);  // Utilisez le routeur API pour les routes API
+app.use('/lucas', apiLucasRoutes);  // Utilisez le routeur API pour les routes API
 
 app.listen(port, () => {
-  console.log(`Example app listening don port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});
