@@ -5,7 +5,7 @@ async function obtenirTrophees(tagJoueur) {
     const reponse = await fetch(`https://api.brawlstars.com/v1/players/${tagJoueur}`, {
         method: 'GET',
         headers: {
-            Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImQ3ODRlOTJjLTk3YzctNDZhYi1hNmRhLTFiMjI2YTU1ZWQ2NiIsImlhdCI6MTY5NjE1NDE1Miwic3ViIjoiZGV2ZWxvcGVyL2NiYmIwMjA0LWNlNWUtY2UwMS1kMDAzLTIzNDgzZjFhNzg3MyIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiODkuODEuMTQwLjU3IiwiODkuODQuMjAxLjIyIl0sInR5cGUiOiJjbGllbnQifV19.O_BWITirMh8Jhz--h1Gl34Jy4Ns3R2Uow9C45i3agSh58C6ZN65lFxG68JleMhVFA9lLYZulv1QOjIMUwYvAIA',
+            Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjFhMDY3ZjU0LTA0MWYtNDViMi1iYzI0LWYxNzlkYWRiMDM0OSIsImlhdCI6MTY5NjE5NDM0MSwic3ViIjoiZGV2ZWxvcGVyL2NiYmIwMjA0LWNlNWUtY2UwMS1kMDAzLTIzNDgzZjFhNzg3MyIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiNTQuMjI3LjYzLjI0MSIsIjg5LjgxLjE0MC41NyIsIjg5Ljg0LjIwMS4yMiJdLCJ0eXBlIjoiY2xpZW50In1dfQ.neoLG5aK0PvjPSCm5tQt0hPJyK7jq4sGoXkut1Gtx1lRsrUgkBr454L2Ui3bLGvkxFAiL98W1kbVmIUpDzDiBg ',
             Accept: 'application/json'
         }
     });
@@ -53,7 +53,7 @@ async function obtenirTrophees2(tagJoueur) {
     const reponse = await fetch(`https://api.brawlstars.com/v1/players/${tagJoueur}`, {
         method: 'GET',
         headers: {
-            Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImQ3ODRlOTJjLTk3YzctNDZhYi1hNmRhLTFiMjI2YTU1ZWQ2NiIsImlhdCI6MTY5NjE1NDE1Miwic3ViIjoiZGV2ZWxvcGVyL2NiYmIwMjA0LWNlNWUtY2UwMS1kMDAzLTIzNDgzZjFhNzg3MyIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiODkuODEuMTQwLjU3IiwiODkuODQuMjAxLjIyIl0sInR5cGUiOiJjbGllbnQifV19.O_BWITirMh8Jhz--h1Gl34Jy4Ns3R2Uow9C45i3agSh58C6ZN65lFxG68JleMhVFA9lLYZulv1QOjIMUwYvAIA',
+            Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjFhMDY3ZjU0LTA0MWYtNDViMi1iYzI0LWYxNzlkYWRiMDM0OSIsImlhdCI6MTY5NjE5NDM0MSwic3ViIjoiZGV2ZWxvcGVyL2NiYmIwMjA0LWNlNWUtY2UwMS1kMDAzLTIzNDgzZjFhNzg3MyIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiNTQuMjI3LjYzLjI0MSIsIjg5LjgxLjE0MC41NyIsIjg5Ljg0LjIwMS4yMiJdLCJ0eXBlIjoiY2xpZW50In1dfQ.neoLG5aK0PvjPSCm5tQt0hPJyK7jq4sGoXkut1Gtx1lRsrUgkBr454L2Ui3bLGvkxFAiL98W1kbVmIUpDzDiBg ',
             Accept: 'application/json'
         }
     });
