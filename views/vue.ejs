@@ -13,5 +13,13 @@
         <%=data.tag%>
         
     </ul>
+    <h2>Brawlers:</h2>
+    <ul>
+        <% data.brawlers.forEach(function(brawler) { %>
+            <li>
+                Nom: <%= brawler.name %>, Trophées: <%= brawler.trophies %>
+            </li>
+        <% }); %>
+    </ul>
 </body>
 </html
