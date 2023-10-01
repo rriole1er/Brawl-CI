@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}`);
+});
 const ejs = require('ejs');
 const mainRoutes = require('./routes/main'); // Importez le routeur principal
 const apiRemyRoutes = require('./routes/apiRemy');   // Importez le routeur API
@@ -14,7 +17,3 @@ app.set('view engine', 'ejs');
 app.use('/', mainRoutes); // Utilisez le routeur principal pour les routes principales
 app.use('/remy', apiRemyRoutes);  // Utilisez le routeur API pour les routes API
 app.use('/lucas', apiLucasRoutes);  // Utilisez le routeur API pour les routes API
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
