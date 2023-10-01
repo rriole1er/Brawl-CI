@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const HttpsProxyAgent = require('https-proxy-agent');
 
 stats = {} 
 const proxyUrl = 'http://fixie:kmzzVSUwFDuEsju@velodrome.usefixie.com:80'; // Remplacez par l'URL du proxy Fixie Sock
