@@ -21,6 +21,8 @@ router.get('/', async (req, res) => {
       res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
    }
 
+   console.log(stats);
+
   res.render('vue',{data:stats});
 });
 
