@@ -10,7 +10,14 @@
     <h1>Données du joueur Brawl Stars</h1>
     <ul>
 
-        <%=data.tag%>
+        <li> Blaze : <%=data.name%> </li>
+        <li> TAG : <%=data.tag%></li>
+        <li> TROPHEES : <%=data.trophies%></li> 
+        <li> ++ TROPHIES : <%=data.highestTrophies%> </li>
+        <li> 3vs3 victoire : <%=data['3vs3Victories']%> </li>
+        <li> Solo Showdown top1 : <%=data.soloVictories%> </li>
+        <li> Duo Showdown top1 : <%=data.duoVictories%> </li>
+
         
     </ul>
     <h2>Brawlers:</h2>
