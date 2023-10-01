@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const fetch = require('node-fetch');
 
 stats = {} 
+const proxyUrl = 'http://fixie:kmzzVSUwFDuEsju@velodrome.usefixie.com:80'; // Remplacez par l'URL du proxy Fixie Sock
 
 
 router.get('/', async (req, res) => {
@@ -12,7 +14,8 @@ router.get('/', async (req, res) => {
            headers: {
                Authorization: 'Bearer REDACTED_API_KEY' ,
                Accept: 'application/json'
-           }
+           },
+           agent: new HttpsProxyAgent(proxyUrl)
        });
        stats = await response.json();
 
