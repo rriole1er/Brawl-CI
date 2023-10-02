@@ -1,38 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
-const url = require('url');
-stats = {} 
 
-const fixieUrl = url.parse(process.env.FIXIE_URL || 'http://fixie:kmzzVSUwFDuEsju@velodrome.usefixie.com');
-const fixieAuth = fixieUrl.auth.split(':');
+const { fetchDataFromBrawlStars } = require('../public/js/apicall'); // Importez la fonction depuis le module
+const { fetchDataFromBrawlStarsLocal} = require('../public/js/apicall');
 
-const apiKey = 'REDACTED_API_KEY';  // Remplacez par votre clé d'API Brawl Stars
+const NodeCache = require('node-cache'); // Utilisez un module de cache comme node-cache
+const cache = new NodeCache();
 
-// Fonction pour récupérer les données depuis l'API Brawl Stars
-async function fetchDataFromBrawlStars() {
-    try {
-        const response = await axios.get("https://api.brawlstars.com/v1/players/%2320GGQPVVL", {
-            headers: {
-                Authorization: `Bearer ${apiKey}`,
-                Accept: 'application/json'
-            },
-            proxy: {
-                protocol: 'http',
-                host: fixieUrl.hostname,
-                port: fixieUrl.port,
-                auth: {
-                    username: fixieAuth[0],
-                    password: fixieAuth[1]
-                }
-            }
-        });
-        return response.data;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-}
+const cacheKey = 'brawl-stars-data'; // Clé de cache pour les données Brawl Stars
+const tag = '20GGQPVVL'
 
 // Route pour obtenir les données Brawl Stars
 router.get('/proxy', async (req, res) => {
@@ -46,7 +22,7 @@ router.get('/proxy', async (req, res) => {
             res.render('vue', { data: cachedData });
         } else {
             // Si les données ne sont pas en cache, récupérez-les depuis l'API Brawl Stars
-            const stats = await fetchDataFromBrawlStars();
+            const stats = await fetchDataFromBrawlStars(tag);
             
             // Mettez les données en cache pour les prochaines 6 heures (ou votre délai souhaité)
             cache.set(cacheKey, stats, 6 * 60 * 60); // Cache pendant 6 heures
@@ -62,7 +38,7 @@ router.get('/proxy', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         // Utilisez votre fonction fetchDataFromBrawlStars pour récupérer les données sans utiliser le proxy
-        const stats = await fetchDataFromBrawlStars();
+        const stats = await fetchDataFromBrawlStarsLocal(tag);
 
         res.render('vue', { data: stats });
     } catch (error) {
