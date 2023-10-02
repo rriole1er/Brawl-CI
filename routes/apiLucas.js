@@ -53,7 +53,7 @@ router.get('/proxy', async (req, res) => {
             // Mettez les données en cache pour les prochaines 6 heures (ou votre délai souhaité)
             cache.set(cacheKey, stats, 6 * 60 * 60); // Cache pendant 6 heures
             
-            res.render('vue', { data: stats });
+            res.render('vue', { data: stats, playerName:"lucas"  });
         }
     } catch (error) {
         res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
@@ -70,7 +70,7 @@ router.get('/refresh', (req, res) => {
 
     lastRefreshed = now;
     cache.del(cacheKey);
-    res.redirect('/remy/proxy');
+    res.redirect('/lucas/proxy');
 });
 
 module.exports = router;

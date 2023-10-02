@@ -3,6 +3,7 @@ const router = express.Router();
 
 const { fetchDataFromBrawlStars } = require('../public/js/apicall'); // Importez la fonction depuis le module
 const { fetchDataFromBrawlStarsLocal} = require('../public/js/apicall');
+const fs = require('fs');
 
 const NodeCache = require('node-cache'); // Utilisez un module de cache comme node-cache
 const cache = new NodeCache();
@@ -10,6 +11,14 @@ const cacheKey = 'brawl-stars-data'; // Clé de cache pour les données Brawl St
 
 const tag = 'VUGVJYUY'
 let lastRefreshed = null;
+
+/*---- JSON TROPHEE CHAQUE JOUR -----*/
+
+// Lisez le contenu du fichier JSON
+const jsonData = fs.readFileSync('./public/js/tropheesElRemyto.json', 'utf-8');
+
+// Parsez le contenu JSON en un objet JavaScript
+const jsonTR = JSON.stringify(jsonData);
 
 
 
@@ -30,7 +39,13 @@ router.get('/', async (req, res) => {
             stats.brawlers.sort((a, b) => b.highestTrophies - a.highestTrophies);
         }
 
-        res.render('vue', { data: stats,playerName:"remy" });
+        // Lisez le contenu du fichier JSON
+        const jsonData = fs.readFileSync('./public/js/tropheesElRemyto.json', 'utf-8');
+
+        // Parsez le contenu JSON en un objet JavaScript
+        const jsonObject = JSON.stringify(jsonData);
+
+        res.render('vue', { data: stats,playerName:"remy",jsonTR:jsonTR });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
@@ -46,17 +61,27 @@ router.get('/proxy', async (req, res) => {
         if (cachedData) {
             // Si les données sont en cache, renvoyez-les sans faire de nouvelle requête
             console.log('Données en cache');
-            res.render('vue', { data: cachedData });
+            res.render('vue', { data: cachedData,playerName:"remy",jsonTR:jsonTR });
 
         } else {
             // Si les données ne sont pas en cache, récupérez-les depuis l'API Brawl Stars
             const stats = await fetchDataFromBrawlStars(tag);
             
-            
             // Mettez les données en cache pour les prochaines 6 heures (ou votre délai souhaité)
             cache.set(cacheKey, stats, 6 * 60 * 60); // Cache pendant 6 heures
+
+            // Définissez le critère de filtrage en fonction de la requête de l'utilisateur (par défaut sur "trophies")
+            const filterCriteria = req.query.filter || 'trophies';
+
+            if (filterCriteria === 'trophies') {
+                // Triez par trophées décroissantes
+                stats.brawlers.sort((a, b) => b.trophies - a.trophies);
+            } else if (filterCriteria === 'highestTrophies') {
+                // Triez par les meilleurs trophées décroissantes
+                stats.brawlers.sort((a, b) => b.highestTrophies - a.highestTrophies);
+            }
             
-            res.render('vue', { data: stats });
+            res.render('vue', { data: stats, jsonTR: jsonTR,playerName:"remy" });
         }
     } catch (error) {
         res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
