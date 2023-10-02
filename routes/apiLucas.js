@@ -47,4 +47,16 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/refresh', (req, res) => {
+    const now = Date.now();
+
+    if (lastRefreshed && now - lastRefreshed < 5 * 60 * 1000) {  // 5 minutes en millisecondes
+        return res.status(429).send("Trop de demandes. Veuillez attendre avant de rafraîchir à nouveau.");
+    }
+
+    lastRefreshed = now;
+    cache.del(cacheKey);
+    res.redirect('/remy/proxy');
+});
+
 module.exports = router;
