@@ -2,6 +2,8 @@
 
     <body>
 
+        <!------------------------------- Stat joueur  ---------------------------------->
+
         <div class="container">
             <h1>Données de <%=data.name%>
             </h1>
@@ -22,6 +24,9 @@
             </div>
             <button id="refreshButton">Actualiser</button>
             <span id="countdown" style="display: none;"></span>
+
+                    <!------------------------------- Bouton refresh  ---------------------------------->
+
             <script>
                 const button = document.getElementById("refreshButton");
                 const countdownElement = document.getElementById("countdown");
@@ -70,17 +75,34 @@
                     window.location.href = '/remy/refresh';
                 });
             </script>
+
+                    <!------------------------------- Bouton refresh  ---------------------------------->
+
+
         </div>
 
+                    <!------------------------------- Brawler affichage  ---------------------------------->
 
 
         <div class="container">
             <h2>Brawlers:</h2>
+
+            <form action="/<%= playerName %>" method="get">
+                <label>
+                    <input type="radio" name="filter" value="trophies" checked>
+                    Trier par Trophées
+                </label>
+                <label>
+                    <input type="radio" name="filter" value="highestTrophies">
+                    Trier par Meilleurs Trophées
+                </label>
+                <button type="submit">Filtrer</button>
+            </form>
+
             <div class="brawlers-container">
                 <% data.brawlers.forEach(function(brawler) { %>
                     <div class="brawler">
-                        <!-- Note: Vous devrez peut-être ajuster le chemin de l'image selon l'endroit où vous stockez les images des brawlers -->
-                        <img src="/src/<%= brawler.id %>.png" alt="<%= brawler.name %> Image">
+                        <img class="brawler img" src="/src/<%= brawler.id %>.png" alt="<%= brawler.name %> Image">
                         <div class="brawler-details">
                             <h4><%= brawler.name %></h4>
                             <p>Trophées actuels: <%= brawler.trophies %></p>
@@ -91,6 +113,9 @@
                 <% }); %>
             </div>
         </div>
+
+                <!------------------------------- Brawler affichage  ---------------------------------->
+
     </body>
 
     </html

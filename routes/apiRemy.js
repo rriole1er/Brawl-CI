@@ -9,6 +9,33 @@ const cache = new NodeCache();
 const cacheKey = 'brawl-stars-data'; // Clé de cache pour les données Brawl Stars
 
 const tag = 'VUGVJYUY'
+let lastRefreshed = null;
+
+
+
+// La route '/' pour récupérer les données localement
+router.get('/', async (req, res) => {
+    try {
+        // Utilisez votre fonction fetchDataFromBrawlStars pour récupérer les données sans utiliser le proxy
+        const stats = await fetchDataFromBrawlStarsLocal(tag);
+
+        // Définissez le critère de filtrage en fonction de la requête de l'utilisateur (par défaut sur "trophies")
+        const filterCriteria = req.query.filter || 'trophies';
+
+        if (filterCriteria === 'trophies') {
+            // Triez par trophées décroissantes
+            stats.brawlers.sort((a, b) => b.trophies - a.trophies);
+        } else if (filterCriteria === 'highestTrophies') {
+            // Triez par les meilleurs trophées décroissantes
+            stats.brawlers.sort((a, b) => b.highestTrophies - a.highestTrophies);
+        }
+
+        res.render('vue', { data: stats,playerName:"remy" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
+    }
+});
 
 // Route pour obtenir les données Brawl Stars
 router.get('/proxy', async (req, res) => {
@@ -36,20 +63,6 @@ router.get('/proxy', async (req, res) => {
     }
 });
 
-// La route '/' pour récupérer les données sans utiliser le proxy
-router.get('/', async (req, res) => {
-    try {
-        // Utilisez votre fonction fetchDataFromBrawlStars pour récupérer les données sans utiliser le proxy
-        const stats = await fetchDataFromBrawlStarsLocal(tag);
-
-        res.render('vue', { data: stats });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
-    }
-});
-
-let lastRefreshed = null;
 
 router.get('/refresh', (req, res) => {
     const now = Date.now();
