@@ -1,4 +1,4 @@
-const { fetchDataFromBrawlStars } = require('./public/js/apicall');
+const { fetchDataFromBrawlStars } = require('./apicall');
 
 const fetch = require('node-fetch');
 const fs = require('fs');
@@ -63,6 +63,4 @@ function fetchAndUpdateData() {
     });
 }
 
-fetchAndUpdateData();
-
-module.exports = fetchAndUpdateData;
+module.exports = { fetchAndUpdateData };

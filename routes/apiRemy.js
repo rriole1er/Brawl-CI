@@ -25,6 +25,7 @@ router.get('/proxy', async (req, res) => {
             // Si les données ne sont pas en cache, récupérez-les depuis l'API Brawl Stars
             const stats = await fetchDataFromBrawlStars(tag);
             
+            
             // Mettez les données en cache pour les prochaines 6 heures (ou votre délai souhaité)
             cache.set(cacheKey, stats, 6 * 60 * 60); // Cache pendant 6 heures
             
