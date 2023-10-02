@@ -10,7 +10,7 @@ const apiRemyRoutes = require('./routes/apiRemy');   // Importez le routeur API
 const apiLucasRoutes = require('./routes/apiLucas');   // Importez le routeur API
 
 
-app.use(express.static(__dirname + '/src'));
+app.use(express.static(__dirname + '/public/src'));
 
 app.set('view engine', 'ejs');
 
