@@ -1,6 +1,7 @@
 <!-- header.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,14 +19,18 @@
             color: #fff;
             padding: 20px;
             text-align: center;
-            display: flex; /* Utilisez Flexbox pour aligner horizontalement les éléments */
-            align-items: center; /* Alignez verticalement les éléments au centre */
-            justify-content: center; /* Alignez horizontalement les éléments au centre */
+            display: flex;
+            /* Utilisez Flexbox pour aligner horizontalement les éléments */
+            align-items: center;
+            /* Alignez verticalement les éléments au centre */
+            justify-content: center;
+            /* Alignez horizontalement les éléments au centre */
         }
 
         h1 {
             font-size: 24px;
-            margin-left: 10px; /* Marge à gauche pour séparer l'image du texte */
+            margin-left: 10px;
+            /* Marge à gauche pour séparer l'image du texte */
         }
 
         .container {
@@ -53,15 +58,48 @@
         }
 
         .container img:hover {
-            transform: scale(1.1); /* Augmentez la taille de 10% */
-            transition: transform 0.3s ease; /* Ajoutez une transition fluide */
+            transform: scale(1.1);
+            /* Augmentez la taille de 10% */
+            transition: transform 0.3s ease;
+            /* Ajoutez une transition fluide */
+        }
+
+        .container .brawlers-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .brawler {
+            flex-basis: calc(33.33% - 10px);
+            /* Affiche 3 brawlers par ligne avec un peu d'espace entre eux */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .brawler img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        .brawler-details {
+            text-align: center;
+            margin-top: 10px;
         }
     </style>
 </head>
+
 <body>
     <header>
-        <a href="/"> <img src="/logo-Brawl-Life3.png" alt="Logo" style="max-width: 75px;"></a> <!-- Ajustez la largeur de l'image ici -->
-        <a href="/" style="text-decoration:none; color: white;"><h1>Brawl Life</h1></a>
+        <a href="/"> <img src="/src/logo-Brawl-Life3.png" alt="Logo" style="max-width: 75px;"></a>
+        <!-- Ajustez la largeur de l'image ici -->
+        <a href="/" style="text-decoration:none; color: white;">
+            <h1>Brawl Life</h1>
+        </a>
     </header>
 </body>
+
 </html>

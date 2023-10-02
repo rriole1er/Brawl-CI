@@ -1,34 +1,96 @@
 <%- include('header.html') %>
 
-<body>
+    <body>
 
-    <div class="container">
-        <h1>Données de <%=data.name%> </h1> <h3>(<%=data.tag%>)</h3>
-        <div class="character-container">
-            <div class="character">
-                <h3> TROPHEES : <%=data.trophies%></p> 
-                <p> ++ TROPHIES : <%=data.highestTrophies%> </p>
-                <p> 3vs3 victoire : <%=data['3vs3Victories']%> </p>
-                <p> Solo Showdown top1 : <%=data.soloVictories%> </p>
-                <p> Duo Showdown top1 : <%=data.duoVictories%> </h3  >
+        <div class="container">
+            <h1>Données de <%=data.name%>
+            </h1>
+            <h3>(<%=data.tag%>)</h3>
+            <div class="character-container">
+                <div class="character">
+                    <h3> TROPHEES : <%=data.trophies%>
+                            </p>
+                            <p> ++ TROPHIES : <%=data.highestTrophies%>
+                            </p>
+                            <p> 3vs3 victoire : <%=data['3vs3Victories']%>
+                            </p>
+                            <p> Solo Showdown top1 : <%=data.soloVictories%>
+                            </p>
+                            <p> Duo Showdown top1 : <%=data.duoVictories%>
+                    </h3>
+                </div>
+            </div>
+            <button id="refreshButton">Actualiser</button>
+            <span id="countdown" style="display: none;"></span>
+            <script>
+                const button = document.getElementById("refreshButton");
+                const countdownElement = document.getElementById("countdown");
+
+                function enableButton() {
+                    button.disabled = false;
+                }
+
+                function startCountdown(duration) {
+                    countdownElement.style.display = "inline";
+                    let remainingTime = duration;
+                    updateCountdownDisplay(remainingTime);
+
+                    const intervalId = setInterval(function () {
+                        remainingTime -= 1000;
+                        updateCountdownDisplay(remainingTime);
+
+                        if (remainingTime <= 0) {
+                            clearInterval(intervalId);
+                            countdownElement.style.display = "none";
+                            enableButton();
+                        }
+                    }, 1000);
+                }
+
+                function updateCountdownDisplay(ms) {
+                    const minutes = Math.floor(ms / (60 * 1000));
+                    const seconds = Math.floor((ms % (60 * 1000)) / 1000);
+                    countdownElement.textContent = `${minutes}m ${seconds}s`;
+                }
+
+                // Vérifiez si le bouton a été cliqué dans les 5 dernières minutes
+                const lastClicked = localStorage.getItem("lastClicked");
+                if (lastClicked && Date.now() - lastClicked < 5 * 60 * 1000) {
+                    button.disabled = true;
+                    const remainingDuration = 5 * 60 * 1000 - (Date.now() - lastClicked);
+                    startCountdown(remainingDuration);  // Démarrer le compte à rebours avec le temps restant
+                }
+
+                button.addEventListener("click", function () {
+                    button.disabled = true;
+                    localStorage.setItem("lastClicked", Date.now());
+                    startCountdown(5 * 60 * 1000);  // Démarrer le compte à rebours pour 5 minutes
+                    setTimeout(enableButton, 5 * 60 * 1000);  // Activez le bouton après 5 minutes
+
+                    window.location.href = '/remy/refresh';
+                });
+            </script>
+        </div>
+
+
+
+        <div class="container">
+            <h2>Brawlers:</h2>
+            <div class="brawlers-container">
+                <% data.brawlers.forEach(function(brawler) { %>
+                    <div class="brawler">
+                        <!-- Note: Vous devrez peut-être ajuster le chemin de l'image selon l'endroit où vous stockez les images des brawlers -->
+                        <img src="/src/<%= brawler.id %>.png" alt="<%= brawler.name %> Image">
+                        <div class="brawler-details">
+                            <h4><%= brawler.name %></h4>
+                            <p>Trophées actuels: <%= brawler.trophies %></p>
+                            <p>Trophées les plus élevés: <%= brawler.highestTrophies %></p>
+                            <p>Power: <%= brawler.power %></p>
+                        </div>
+                    </div>
+                <% }); %>
             </div>
         </div>
-    </div>
+    </body>
 
-
-    
-    <div class="container">
-        <h2>Brawlers:</h2>
-        <div class="character-container">
-            <div class="character">
-        <% data.brawlers.forEach(function(brawler) { %>
-            <li>
-                Nom: <%= brawler.name %>, Trophées: <%= brawler.trophies %>
-            </li>
-        <% }); %>
-    </ul>
-            </div>
-        </div>
-    </div>
-</body>
-</html
+    </html
