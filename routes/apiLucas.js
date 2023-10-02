@@ -6,8 +6,8 @@ const { fetchDataFromBrawlStarsLocal} = require('../public/js/apicall');
 
 const NodeCache = require('node-cache'); // Utilisez un module de cache comme node-cache
 const cache = new NodeCache();
-
 const cacheKey = 'brawl-stars-data'; // Clé de cache pour les données Brawl Stars
+
 const tag = '20GGQPVVL'
 
 // Route pour obtenir les données Brawl Stars

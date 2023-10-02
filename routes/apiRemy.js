@@ -6,8 +6,8 @@ const { fetchDataFromBrawlStarsLocal} = require('../public/js/apicall');
 
 const NodeCache = require('node-cache'); // Utilisez un module de cache comme node-cache
 const cache = new NodeCache();
-
 const cacheKey = 'brawl-stars-data'; // Clé de cache pour les données Brawl Stars
+
 const tag = 'VUGVJYUY'
 
 // Route pour obtenir les données Brawl Stars
@@ -20,6 +20,7 @@ router.get('/proxy', async (req, res) => {
             // Si les données sont en cache, renvoyez-les sans faire de nouvelle requête
             console.log('Données en cache');
             res.render('vue', { data: cachedData });
+
         } else {
             // Si les données ne sont pas en cache, récupérez-les depuis l'API Brawl Stars
             const stats = await fetchDataFromBrawlStars(tag);
