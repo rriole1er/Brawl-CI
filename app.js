@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const cron = require('node-cron');
-const fetchAndUpdateData = require('./recupererTrophee');
+
+const { fetchAndUpdateData } = require('./public/js/recupererTrophees');
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
