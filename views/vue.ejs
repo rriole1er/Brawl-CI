@@ -13,10 +13,8 @@
                 <div class="character-container">
                     <div class="character">
                         <h3> TROPHEES : <%=data.trophies%>
-
-                            JSON TR : <%=jsonTR%>
                                     </p>
-                                    <p> ++ TROPHIES : <%=data.highestTrophies%>
+                                    <p> PLUS HAUT TROPHEES : <%=data.highestTrophies%>
                                     </p>
                                     <p> 3vs3 victoire : <%=data['3vs3Victories']%>
                                     </p>
@@ -84,6 +82,37 @@
 
 
             </div>
+
+
+            <!-------------------------------------- Graphique  ----------------------->
+
+            <div class="container">
+
+            <script>
+
+                // Créer un objet de données pour le graphique
+                    const donneesGraphique = {
+                        labels: <%=dates%>,
+                        datasets: [{
+                            label: 'Trophées',
+                            data: [<%=valeursTrophees%>],
+                            fill: false,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1
+                        }]
+                    };
+
+                    // Créer le graphique avec Chart.js
+                    const ctx = document.getElementById('tropheesChart').getContext('2d');
+                    const tropheesChart = new Chart(ctx, {
+                        type: 'line',
+                        data: donneesGraphique
+                    });
+
+            </script>
+
+            </div>
+
 
             <!------------------------------- Brawler affichage  ---------------------------------->
 
