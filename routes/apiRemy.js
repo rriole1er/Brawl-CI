@@ -17,8 +17,6 @@ let lastRefreshed = null;
 // Lisez le contenu du fichier JSON
 const jsonData = fs.readFileSync('./public/js/tropheesElRemyto.json', 'utf-8');
 
-// Parsez le contenu JSON en un objet JavaScript
-const jsonTR = JSON.stringify(jsonData);
 
 
 
@@ -43,9 +41,13 @@ router.get('/', async (req, res) => {
         const jsonData = fs.readFileSync('./public/js/tropheesElRemyto.json', 'utf-8');
 
         // Parsez le contenu JSON en un objet JavaScript
-        const jsonObject = JSON.stringify(jsonData);
+        const jsonObject = JSON.parse(jsonData);
+        // Extraire les dates (jours) et les valeurs des trophées
+        const dates = Object.keys(jsonObject);
+        const valeursTrophees = Object.values(jsonObject);
 
-        res.render('vue', { data: stats,playerName:"remy",jsonTR:jsonTR });
+
+        res.render('vue', { data: stats,playerName:"remy",valeursTrophees:valeursTrophees,dates:dates });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
@@ -61,7 +63,7 @@ router.get('/proxy', async (req, res) => {
         if (cachedData) {
             // Si les données sont en cache, renvoyez-les sans faire de nouvelle requête
             console.log('Données en cache');
-            res.render('vue', { data: cachedData,playerName:"remy",jsonTR:jsonTR });
+            res.render('vue', { data: cachedData,playerName:"remy" });
 
         } else {
             // Si les données ne sont pas en cache, récupérez-les depuis l'API Brawl Stars
@@ -81,7 +83,7 @@ router.get('/proxy', async (req, res) => {
                 stats.brawlers.sort((a, b) => b.highestTrophies - a.highestTrophies);
             }
             
-            res.render('vue', { data: stats, jsonTR: jsonTR,playerName:"remy" });
+            res.render('vue', { data: stats,playerName:"remy" });
         }
     } catch (error) {
         res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
