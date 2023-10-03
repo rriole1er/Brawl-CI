@@ -2,121 +2,135 @@
 
     <body>
 
-        <!------------------------------- Stat joueur  ---------------------------------->
+        <% if(data !=null) { %>
 
-        <div class="container">
-            <h1>Données de <%=data.name%>
-            </h1>
-            <h3>(<%=data.tag%>)</h3>
-            <div class="character-container">
-                <div class="character">
-                    <h3> TROPHEES : <%=data.trophies%>
+            <!------------------------------- Stat joueur  ---------------------------------->
 
-                        JSON TR : <%=jsonTR%>
-                            </p>
-                            <p> ++ TROPHIES : <%=data.highestTrophies%>
-                            </p>
-                            <p> 3vs3 victoire : <%=data['3vs3Victories']%>
-                            </p>
-                            <p> Solo Showdown top1 : <%=data.soloVictories%>
-                            </p>
-                            <p> Duo Showdown top1 : <%=data.duoVictories%>
-                    </h3>
+            <div class="container">
+                <h1>Données de <%=data.name%>
+                </h1>
+                <h3>(<%=data.tag%>)</h3>
+                <div class="character-container">
+                    <div class="character">
+                        <h3> TROPHEES : <%=data.trophies%>
+
+                            JSON TR : <%=jsonTR%>
+                                    </p>
+                                    <p> ++ TROPHIES : <%=data.highestTrophies%>
+                                    </p>
+                                    <p> 3vs3 victoire : <%=data['3vs3Victories']%>
+                                    </p>
+                                    <p> Solo Showdown top1 : <%=data.soloVictories%>
+                                    </p>
+                                    <p> Duo Showdown top1 : <%=data.duoVictories%>
+                        </h3>
+                    </div>
                 </div>
-            </div>
-            <button id="refreshButton">Actualiser</button>
-            <span id="countdown" style="display: none;"></span>
+                <button id="refreshButton">Actualiser</button>
+                <span id="countdown" style="display: none;"></span>
 
-                    <!------------------------------- Bouton refresh  ---------------------------------->
+                <!------------------------------- Bouton refresh  ---------------------------------->
 
-            <script>
-                const button = document.getElementById("refreshButton");
-                const countdownElement = document.getElementById("countdown");
+                <script>
+                    const button = document.getElementById("refreshButton");
+                    const countdownElement = document.getElementById("countdown");
 
-                function enableButton() {
-                    button.disabled = false;
-                }
+                    function enableButton() {
+                        button.disabled = false;
+                    }
 
-                function startCountdown(duration) {
-                    countdownElement.style.display = "inline";
-                    let remainingTime = duration;
-                    updateCountdownDisplay(remainingTime);
-
-                    const intervalId = setInterval(function () {
-                        remainingTime -= 1000;
+                    function startCountdown(duration) {
+                        countdownElement.style.display = "inline";
+                        let remainingTime = duration;
                         updateCountdownDisplay(remainingTime);
 
-                        if (remainingTime <= 0) {
-                            clearInterval(intervalId);
-                            countdownElement.style.display = "none";
-                            enableButton();
-                        }
-                    }, 1000);
-                }
+                        const intervalId = setInterval(function () {
+                            remainingTime -= 1000;
+                            updateCountdownDisplay(remainingTime);
 
-                function updateCountdownDisplay(ms) {
-                    const minutes = Math.floor(ms / (60 * 1000));
-                    const seconds = Math.floor((ms % (60 * 1000)) / 1000);
-                    countdownElement.textContent = `${minutes}m ${seconds}s`;
-                }
+                            if (remainingTime <= 0) {
+                                clearInterval(intervalId);
+                                countdownElement.style.display = "none";
+                                enableButton();
+                            }
+                        }, 1000);
+                    }
 
-                // Vérifiez si le bouton a été cliqué dans les 5 dernières minutes
-                const lastClicked = localStorage.getItem("lastClicked");
-                if (lastClicked && Date.now() - lastClicked < 5 * 60 * 1000) {
-                    button.disabled = true;
-                    const remainingDuration = 5 * 60 * 1000 - (Date.now() - lastClicked);
-                    startCountdown(remainingDuration);  // Démarrer le compte à rebours avec le temps restant
-                }
+                    function updateCountdownDisplay(ms) {
+                        const minutes = Math.floor(ms / (60 * 1000));
+                        const seconds = Math.floor((ms % (60 * 1000)) / 1000);
+                        countdownElement.textContent = `${minutes}m ${seconds}s`;
+                    }
 
-                button.addEventListener("click", function () {
-                    button.disabled = true;
-                    localStorage.setItem("lastClicked", Date.now());
-                    startCountdown(5 * 60 * 1000);  // Démarrer le compte à rebours pour 5 minutes
-                    setTimeout(enableButton, 5 * 60 * 1000);  // Activez le bouton après 5 minutes
+                    // Vérifiez si le bouton a été cliqué dans les 5 dernières minutes
+                    const lastClicked = localStorage.getItem("lastClicked");
+                    if (lastClicked && Date.now() - lastClicked < 5 * 60 * 1000) {
+                        button.disabled = true;
+                        const remainingDuration = 5 * 60 * 1000 - (Date.now() - lastClicked);
+                        startCountdown(remainingDuration);  // Démarrer le compte à rebours avec le temps restant
+                    }
 
-                    window.location.href = '/remy/refresh';
-                });
-            </script>
+                    button.addEventListener("click", function () {
+                        button.disabled = true;
+                        localStorage.setItem("lastClicked", Date.now());
+                        startCountdown(5 * 60 * 1000);  // Démarrer le compte à rebours pour 5 minutes
+                        setTimeout(enableButton, 5 * 60 * 1000);  // Activez le bouton après 5 minutes
 
-                    <!------------------------------- Bouton refresh  ---------------------------------->
+                        window.location.href = '/remy/refresh';
+                    });
+                </script>
+
+                <!------------------------------- Bouton refresh  ---------------------------------->
 
 
-        </div>
-
-                    <!------------------------------- Brawler affichage  ---------------------------------->
-
-
-        <div class="container">
-            <h2>Brawlers:</h2>
-
-            <form action="/<%= playerName %>" method="get">
-                <label>
-                    <input type="radio" name="filter" value="trophies" checked>
-                    Trier par Trophées
-                </label>
-                <label>
-                    <input type="radio" name="filter" value="highestTrophies">
-                    Trier par Meilleurs Trophées
-                </label>
-                <button type="submit">Filtrer</button>
-            </form>
-
-            <div class="brawlers-container">
-                <% data.brawlers.forEach(function(brawler) { %>
-                    <div class="brawler">
-                        <img class="brawler img" src="/src/<%= brawler.id %>.png" alt="<%= brawler.name %> Image">
-                        <div class="brawler-details">
-                            <h4><%= brawler.name %></h4>
-                            <p>Trophées actuels: <%= brawler.trophies %></p>
-                            <p>Trophées les plus élevés: <%= brawler.highestTrophies %></p>
-                            <p>Power: <%= brawler.power %></p>
-                        </div>
-                    </div>
-                <% }); %>
             </div>
-        </div>
 
-                <!------------------------------- Brawler affichage  ---------------------------------->
+            <!------------------------------- Brawler affichage  ---------------------------------->
+
+
+            <div class="container">
+                <h2>Brawlers:</h2>
+
+                <form action="/<%= playerName %>" method="get">
+                    <label>
+                        <input type="radio" name="filter" value="trophies" checked>
+                        Trier par Trophées
+                    </label>
+                    <label>
+                        <input type="radio" name="filter" value="highestTrophies">
+                        Trier par Meilleurs Trophées
+                    </label>
+                    <button type="submit">Filtrer</button>
+                </form>
+
+                <div class="brawlers-container">
+                    <% data.brawlers.forEach(function(brawler) { %>
+                        <div class="brawler">
+                            <img class="brawler img" src="/src/<%= brawler.id %>.png" alt="<%= brawler.name %> Image">
+                            <div class="brawler-details">
+                                <h4>
+                                    <%= brawler.name %>
+                                </h4>
+                                <p>Trophées actuels: <%= brawler.trophies %>
+                                </p>
+                                <p>Trophées les plus élevés: <%= brawler.highestTrophies %>
+                                </p>
+                                <p>Power: <%= brawler.power %>
+                                </p>
+                            </div>
+                        </div>
+                        <% }); %>
+                </div>
+            </div>
+
+            <!------------------------------- Brawler affichage  ---------------------------------->
+
+
+        <% } else { %>
+            <div class="container">
+                <h1>Erreur lors de la récupération des données. Veuillez réessayer plus tard.</h1>
+                </div>
+        <% } %>
 
     </body>
 
