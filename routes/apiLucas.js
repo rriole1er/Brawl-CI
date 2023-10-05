@@ -29,56 +29,22 @@ router.get('/', async (req, res) => {
             stats.brawlers.sort((a, b) => b.highestTrophies - a.highestTrophies);
         }
 
-        res.render('vue', { data: stats, playerName: "lucas" });
+        // Lisez le contenu du fichier JSON
+        const jsonData = fs.readFileSync('./public/js/tropheesLuc4gbox.json', 'utf-8');
+
+        // Parsez le contenu JSON en un objet JavaScript
+        const jsonObject = JSON.parse(jsonData);
+        // Extraire les dates (jours) et les valeurs des trophées
+        const dates = Object.keys(jsonObject);
+        const valeursTrophees = Object.values(jsonObject);
+
+
+        res.render('vue', { data: stats, playerName: "lucas",valeursTrophees:valeursTrophees,dates:dates });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
     }
 });
 
-// Route pour obtenir les données Brawl Stars
-router.get('/proxy', async (req, res) => {
-    try {
-        // Vérifiez si les données sont en cache
-        const cachedData = cache.get(cacheKey);
-
-        if (cachedData) {
-            // Si les données sont en cache, renvoyez-les sans faire de nouvelle requête
-            console.log('Données en cache');
-            res.render('vue', { data: cachedData, playerName: "lucas"});
-        } else {
-            // Si les données ne sont pas en cache, récupérez-les depuis l'API Brawl Stars
-            const stats = await fetchDataFromBrawlStars(tag);
-
-            if (stats.reason && stats.reason === "inMaintenance") {
-                throw new Error("L'API est actuellement en maintenance. Veuillez revenir plus tard.");
-            }
-
-            if (stats.reason && stats.reason === "unknownException") {
-                throw new Error("Impossible de récupérer les données.");
-            }
-
-            // Mettez les données en cache pour les prochaines 6 heures (ou votre délai souhaité)
-            cache.set(cacheKey, stats, 6 * 60 * 60); // Cache pendant 6 heures
-
-            res.render('vue', { data: stats, playerName: "lucas" });
-        }
-    } catch (error) {
-        res.status(500).render('vue', { data: null, playerName: "lucas" });
-    }
-});
-
-
-router.get('/refresh', (req, res) => {
-    const now = Date.now();
-
-    if (lastRefreshed && now - lastRefreshed < 5 * 60 * 1000) {  // 5 minutes en millisecondes
-        return res.status(429).send("Trop de demandes. Veuillez attendre avant de rafraîchir à nouveau.");
-    }
-
-    lastRefreshed = now;
-    cache.del(cacheKey);
-    res.redirect('/lucas/proxy');
-});
 
 module.exports = router;
