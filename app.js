@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 const cron = require('node-cron');
 
 const { fetchAndUpdateData } = require('./public/js/recupererTrophees');
