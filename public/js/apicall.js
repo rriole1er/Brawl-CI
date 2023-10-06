@@ -14,15 +14,6 @@ async function fetchDataFromBrawlStars(playerTag) {
                 Authorization: `Bearer ${apiKey}`,
                 Accept: 'application/json'
             },
-            proxy: {
-                protocol: 'http',
-                host: fixieUrl.hostname,
-                port: fixieUrl.port,
-                auth: {
-                    username: fixieAuth[0],
-                    password: fixieAuth[1]
-                }
-            }
         });
         return response.data;
     } catch (error) {
