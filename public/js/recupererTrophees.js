@@ -8,6 +8,7 @@ const NodeCache = require('node-cache');
 const cache = new NodeCache();
 const cacheKey = 'brawl-stars-data';
 const schedule = require('node-schedule');
+const cron = require('cron');
 
 async function obtenirTrophees(tagJoueur) {
     const cachedData = cache.get(cacheKey);
@@ -64,9 +65,16 @@ function fetchAndUpdateData() {
     });
 }
 
-schedule.scheduleJob('5 0 * * *', function(){
+schedule.scheduleJob('10 0 * * *', function(){
     console.log('Mise à jour des données de trophées...');
     console.log('TEST');
 });
+
+const job = new cron.CronJob('0 10 0 * * *', function() {
+    console.log('Mise à jour des données de trophées CRON...');
+    console.log('TEST cron');
+});
+
+job.start();
 
 module.exports = { fetchAndUpdateData };
