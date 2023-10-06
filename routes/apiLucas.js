@@ -9,7 +9,6 @@ const cache = new NodeCache();
 const cacheKey = 'brawl-stars-data'; // Clé de cache pour les données Brawl Stars
 
 const tag = '20GGQPVVL'
-let lastRefreshed = null;
 
 
 // La route '/' pour récupérer les données localement
