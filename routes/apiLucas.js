@@ -3,6 +3,7 @@ const router = express.Router();
 
 const { fetchDataFromBrawlStars } = require('../public/js/apicall'); // Importez la fonction depuis le module
 const { fetchDataFromBrawlStarsLocal } = require('../public/js/apicall');
+const fs = require('fs');
 
 const NodeCache = require('node-cache'); // Utilisez un module de cache comme node-cache
 const cache = new NodeCache();
@@ -10,6 +11,8 @@ const cacheKey = 'brawl-stars-data'; // Clé de cache pour les données Brawl St
 
 const tag = '20GGQPVVL'
 
+// Lisez le contenu du fichier JSON
+const jsonData = fs.readFileSync('./public/js/tropheesLuc4gbox.json', 'utf-8');
 
 // La route '/' pour récupérer les données localement
 router.get('/', async (req, res) => {
