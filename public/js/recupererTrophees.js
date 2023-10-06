@@ -64,9 +64,9 @@ function fetchAndUpdateData() {
     });
 }
 
-schedule.scheduleJob('0 0 * * *', function(){
+schedule.scheduleJob('5 0 * * *', function(){
     console.log('Mise à jour des données de trophées...');
-    fetchAndUpdateData();
+    console.log('TEST');
 });
 
 module.exports = { fetchAndUpdateData };
