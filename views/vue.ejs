@@ -13,74 +13,17 @@
                 <div class="character-container">
                     <div class="character">
                         <h3> TROPHEES : <%=data.trophies%>
-                                    </p>
-                                    <p> PLUS HAUT TROPHEES : <%=data.highestTrophies%>
-                                    </p>
-                                    <p> 3vs3 victoire : <%=data['3vs3Victories']%>
-                                    </p>
-                                    <p> Solo Showdown top1 : <%=data.soloVictories%>
-                                    </p>
-                                    <p> Duo Showdown top1 : <%=data.duoVictories%>
+                                </p>
+                                <p> PLUS HAUT TROPHEES : <%=data.highestTrophies%>
+                                </p>
+                                <p> 3vs3 victoire : <%=data['3vs3Victories']%>
+                                </p>
+                                <p> Solo Showdown top1 : <%=data.soloVictories%>
+                                </p>
+                                <p> Duo Showdown top1 : <%=data.duoVictories%>
                         </h3>
                     </div>
                 </div>
-                <button id="refreshButton">Actualiser</button>
-                <span id="countdown" style="display: none;"></span>
-
-                <!------------------------------- Bouton refresh  ---------------------------------->
-
-                <script>
-                    const button = document.getElementById("refreshButton");
-                    const countdownElement = document.getElementById("countdown");
-
-                    function enableButton() {
-                        button.disabled = false;
-                    }
-
-                    function startCountdown(duration) {
-                        countdownElement.style.display = "inline";
-                        let remainingTime = duration;
-                        updateCountdownDisplay(remainingTime);
-
-                        const intervalId = setInterval(function () {
-                            remainingTime -= 1000;
-                            updateCountdownDisplay(remainingTime);
-
-                            if (remainingTime <= 0) {
-                                clearInterval(intervalId);
-                                countdownElement.style.display = "none";
-                                enableButton();
-                            }
-                        }, 1000);
-                    }
-
-                    function updateCountdownDisplay(ms) {
-                        const minutes = Math.floor(ms / (60 * 1000));
-                        const seconds = Math.floor((ms % (60 * 1000)) / 1000);
-                        countdownElement.textContent = `${minutes}m ${seconds}s`;
-                    }
-
-                    // Vérifiez si le bouton a été cliqué dans les 5 dernières minutes
-                    const lastClicked = localStorage.getItem("lastClicked");
-                    if (lastClicked && Date.now() - lastClicked < 5 * 60 * 1000) {
-                        button.disabled = true;
-                        const remainingDuration = 5 * 60 * 1000 - (Date.now() - lastClicked);
-                        startCountdown(remainingDuration);  // Démarrer le compte à rebours avec le temps restant
-                    }
-
-                    button.addEventListener("click", function () {
-                        button.disabled = true;
-                        localStorage.setItem("lastClicked", Date.now());
-                        startCountdown(5 * 60 * 1000);  // Démarrer le compte à rebours pour 5 minutes
-                        setTimeout(enableButton, 5 * 60 * 1000);  // Activez le bouton après 5 minutes
-
-                        window.location.href = '/remy/refresh';
-                    });
-                </script>
-
-                <!------------------------------- Bouton refresh  ---------------------------------->
-
-
             </div>
 
 
@@ -88,16 +31,16 @@
 
             <div class="container">
 
-            <script>
+                <script>
 
-                // Créer un objet de données pour le graphique
+                    // Créer un objet de données pour le graphique
                     const donneesGraphique = {
                         labels: <%=dates%>,
                         datasets: [{
                             label: 'Trophées',
                             data: [<%=valeursTrophees%>],
-                            fill: false,
-                            borderColor: 'rgb(75, 192, 192)',
+                    fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
                             tension: 0.1
                         }]
                     };
@@ -109,7 +52,7 @@
                         data: donneesGraphique
                     });
 
-            </script>
+                </script>
 
             </div>
 
@@ -155,11 +98,11 @@
             <!------------------------------- Brawler affichage  ---------------------------------->
 
 
-        <% } else { %>
-            <div class="container">
-                <h1>Erreur lors de la récupération des données. Veuillez réessayer plus tard.</h1>
+            <% } else { %>
+                <div class="container">
+                    <h1>Erreur lors de la récupération des données. Veuillez réessayer plus tard.</h1>
                 </div>
-        <% } %>
+                <% } %>
 
     </body>
 

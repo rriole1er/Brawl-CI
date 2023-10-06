@@ -1,4 +1,4 @@
-const { fetchDataFromBrawlStars } = require('./apicall');
+const { fetchDataFromBrawlStars, fetchDataFromBrawlStarsLocal } = require('./apicall');
 
 const fetch = require('node-fetch');
 const fs = require('fs');
@@ -7,6 +7,7 @@ const url = require('url');
 const NodeCache = require('node-cache');
 const cache = new NodeCache();
 const cacheKey = 'brawl-stars-data';
+const schedule = require('node-schedule');
 
 async function obtenirTrophees(tagJoueur) {
     const cachedData = cache.get(cacheKey);
@@ -16,7 +17,7 @@ async function obtenirTrophees(tagJoueur) {
         return cachedData;
     } else {
         // Si les données ne sont pas en cache, récupérez-les depuis l'API Brawl Stars
-        const stats = await fetchDataFromBrawlStars(tagJoueur);
+        const stats = await fetchDataFromBrawlStarsLocal(tagJoueur);
         
         // Mettez les données en cache pour les prochaines 6 heures (ou votre délai souhaité)
         cache.set(cacheKey, stats, 6 * 60 * 60);
@@ -62,5 +63,10 @@ function fetchAndUpdateData() {
         console.error("Erreur lors de la mise à jour des fichiers de trophées:", err);
     });
 }
+
+schedule.scheduleJob('0 0 * * *', function(){
+    console.log('Mise à jour des données de trophées...');
+    fetchAndUpdateData();
+});
 
 module.exports = { fetchAndUpdateData };
