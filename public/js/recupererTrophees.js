@@ -65,6 +65,7 @@ function fetchAndUpdateData() {
     });
 }
 
+/*
 schedule.scheduleJob('10 0 * * *', function(){
     console.log('Mise à jour des données de trophées...');
     console.log('TEST');
@@ -76,5 +77,8 @@ const job = new cron.CronJob('0 10 0 * * *', function() {
 });
 
 job.start();
+*/
+
+fetchAndUpdateData();
 
 module.exports = { fetchAndUpdateData };
