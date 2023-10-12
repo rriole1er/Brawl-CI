@@ -3,6 +3,8 @@ const router = express.Router();
 
 const { fetchDataFromBrawlStars } = require('../public/js/apicall'); // Importez la fonction depuis le module
 const { fetchDataFromBrawlStarsLocal} = require('../public/js/apicall');
+const DataProcessor = require('../public/js/stat'); // Chemin vers la classe Stat
+
 const fs = require('fs');
 
 const NodeCache = require('node-cache'); // Utilisez un module de cache comme node-cache
@@ -34,17 +36,18 @@ router.get('/', async (req, res) => {
             stats.brawlers.sort((a, b) => b.highestTrophies - a.highestTrophies);
         }
 
-        // Lisez le contenu du fichier JSON
-        const jsonData = fs.readFileSync('./public/js/tropheesElRemyto.json', 'utf-8');
+        // Créez une instance de DataProcessor avec le chemin du fichier JSON
+        const dataProcessor = new DataProcessor('./public/js/tropheesElRemyto.json');
 
-        // Parsez le contenu JSON en un objet JavaScript
-        const jsonObject = JSON.parse(jsonData);
-        // Extraire les dates (jours) et les valeurs des trophées
-        const dates = Object.keys(jsonObject);
-        const valeursTrophees = Object.values(jsonObject);
+        // Lisez les données du fichier JSON
+        dataProcessor.readData();
 
+        // Traitez les données pour obtenir les dernières captures de chaque jour
+        const lastCaptures = dataProcessor.process();
 
-        res.render('vue', { data: stats,playerName:"remy",valeursTrophees:valeursTrophees,dates:dates });
+        const [days, values ] = dataProcessor.getDaysAndValues(lastCaptures);
+        
+        res.render('vue', { data: stats,playerName:"remy", days :days, values: values });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
