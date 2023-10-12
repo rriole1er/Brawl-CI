@@ -29,31 +29,61 @@
 
             <!-------------------------------------- Graphique  ----------------------->
 
-            <div class="container">
+           <div class="container">
+                <canvas id="ChartTemp" width="3000" height="500"></canvas>
 
                 <script>
+                    // Récupération du canvas
+                    var ctxTemp = document.getElementById('ChartTemp').getContext('2d');
 
-                    // Créer un objet de données pour le graphique
-                    const donneesGraphique = {
-                        labels: <%=dates%>,
+
+
+                    // Données du graphique
+                    var dataTemp = {
+                        labels: [<%=days%>],
                         datasets: [{
-                            label: 'Trophées',
-                            data: [<%=valeursTrophees%>],
-                    fill: false,
-                        borderColor: 'rgb(75, 192, 192)',
-                            tension: 0.1
-                        }]
+                            label: 'Mois TR',
+                            data: [<%=values%>],
+                            backgroundColor: [
+                                'rgba(229, 13, 236, 0.5)',
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                            ],
+                            borderWidth: 1
+                        }],
                     };
 
-                    // Créer le graphique avec Chart.js
-                    const ctx = document.getElementById('tropheesChart').getContext('2d');
-                    const tropheesChart = new Chart(ctx, {
+                    // Options du graphique
+                    var optionsTemp = {
+                        scales: {
+                            y: {
+                                suggestedMax: 40,
+                                ticks: {
+                                    beginAtZero: true,
+                                    font: {
+                                        size: 18
+                                    }
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    font: {
+                                        size: 18
+                                    }
+                                },
+                                type: 'time',
+                            }
+                        }
+                    };
+
+                    // Création du graphique
+                    var myChartTemp = new Chart(ctxTemp, {
                         type: 'line',
-                        data: donneesGraphique
+                        data: dataTemp,
+                        options: optionsTemp
                     });
-
                 </script>
-
             </div>
 
 

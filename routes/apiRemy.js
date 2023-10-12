@@ -46,7 +46,9 @@ router.get('/', async (req, res) => {
         const lastCaptures = dataProcessor.process();
 
         const [days, values ] = dataProcessor.getDaysAndValues(lastCaptures);
-        
+
+        console.log(days)
+
         res.render('vue', { data: stats,playerName:"remy", days :days, values: values });
     } catch (error) {
         console.error(error);

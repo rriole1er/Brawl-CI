@@ -4,27 +4,13 @@ const fetch = require('node-fetch');
 const fs = require('fs');
 const axios = require('axios');
 const url = require('url');
-const NodeCache = require('node-cache');
-const cache = new NodeCache();
-const cacheKey = 'brawl-stars-data';
 const schedule = require('node-schedule');
 const cron = require('cron');
 
 async function obtenirTrophees(tagJoueur) {
-    const cachedData = cache.get(cacheKey);
-    if (cachedData) {
-        // Si les données sont en cache, renvoyez-les sans faire de nouvelle requête
-        console.log('Données en cache');
-        return cachedData;
-    } else {
-        // Si les données ne sont pas en cache, récupérez-les depuis l'API Brawl Stars
-        const stats = await fetchDataFromBrawlStarsLocal(tagJoueur);
-        
-        // Mettez les données en cache pour les prochaines 6 heures (ou votre délai souhaité)
-        cache.set(cacheKey, stats, 6 * 60 * 60);
-        
-        return stats.trophies;
-    }
+    const stats = await fetchDataFromBrawlStarsLocal(tagJoueur);
+
+    return stats.trophies;
 }
 
 function lireFichierJSON(nomFichier) {
@@ -37,7 +23,8 @@ function lireFichierJSON(nomFichier) {
 }
 
 function ajouterDonneesAuJSON(donneesJSON, trophees) {
-    const aujourdHui = new Date().toISOString().split('T')[0];
+    const maintenant = new Date();
+    const aujourdHui = `${maintenant.toISOString().split('T')[0]} ${maintenant.getHours()}:${maintenant.getMinutes()}`;
     donneesJSON[aujourdHui] = trophees;
     return donneesJSON;
 }
@@ -56,8 +43,8 @@ async function mettreAJourFichierTrophees(tagJoueur, nomFichier) {
 
 function fetchAndUpdateData() {
     Promise.all([
-        mettreAJourFichierTrophees("20GGQPVVL", 'tropheesLuc4gbox.json'),
-        mettreAJourFichierTrophees("VUGVJYUY", 'tropheesElRemyto.json')
+        mettreAJourFichierTrophees("20GGQPVVL", 'public/js/tropheesLuc4gbox.json'),
+        mettreAJourFichierTrophees("VUGVJYUY", 'public/js/tropheesElRemyto.json')
     ]).then(() => {
         console.log("Les fichiers de trophées ont été mis à jour.");
     }).catch((err) => {
@@ -79,6 +66,6 @@ const job = new cron.CronJob('0 10 0 * * *', function() {
 job.start();
 */
 
-fetchAndUpdateData();
+//fetchAndUpdateData();
 
 module.exports = { fetchAndUpdateData };
