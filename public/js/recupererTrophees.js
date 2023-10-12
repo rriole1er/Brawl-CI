@@ -79,6 +79,6 @@ const job = new cron.CronJob('0 10 0 * * *', function() {
 job.start();
 */
 
-fetchAndUpdateData();
+//fetchAndUpdateData();
 
 module.exports = { fetchAndUpdateData };
