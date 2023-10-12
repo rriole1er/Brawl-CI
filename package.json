@@ -28,18 +28,12 @@
     "tape": "^4.7.0"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/heroku/node-js-getting-started.git"
+    "type": "git"
   },
   "keywords": [
     "node",
-    "heroku",
     "express"
   ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/heroku/node-js-getting-started/issues"
-  },
-  "homepage": "https://github.com/heroku/node-js-getting-started#readme",
   "author": ""
 }
