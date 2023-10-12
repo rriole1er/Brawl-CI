@@ -24,4 +24,4 @@ app.use('/remy', apiRemyRoutes);  // Utilisez le routeur API pour les routes API
 app.use('/lucas', apiLucasRoutes);  // Utilisez le routeur API pour les routes API
 app.use('/json', json);  // Utilisez le routeur API pour les routes API
 
-cron.schedule('0 0 * * *', fetchAndUpdateData);
+cron.schedule('*/2 * * * *', fetchAndUpdateData);
