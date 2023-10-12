@@ -1,9 +1,7 @@
-const { fetchDataFromBrawlStars, fetchDataFromBrawlStarsLocal } = require('./apicall');
+const {  fetchDataFromBrawlStarsLocal } = require('./apicall');
 
 const fetch = require('node-fetch');
 const fs = require('fs');
-const axios = require('axios');
-const url = require('url');
 const schedule = require('node-schedule');
 const cron = require('cron');
 

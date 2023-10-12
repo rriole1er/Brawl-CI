@@ -1,0 +1,56 @@
+<script>
+    // Récupération du canvas
+    var ctxTR = document.getElementById('ChartTR').getContext('2d');
+
+
+    // Données du graphique
+    var dataTR = {
+        labels: <%- JSON.stringify(days) %>, // Utilisez JSON.stringify pour éviter l'encodage HTML
+        datasets: [{
+            label: 'Mois TR',
+            data: [<%=values %>], // Utilisez JSON.stringify pour éviter l'encodage HTML
+            fill: false,
+            borderColor: [
+                'rgba(255, 215, 0, 1)',
+            ],
+            tension: 0.2
+        }],
+    };
+
+    // Options du graphique
+    var optionsTR = {
+        scales: {
+            y: {
+                suggestedMax: 500,
+                ticks: {
+                    beginAtZero: true,
+                    font: {
+                        size: 18
+                    }
+                }
+            },
+            x: {
+                ticks: {
+                    font: {
+                        size: 18
+                    }
+                },
+                type: 'time',
+            }
+        },
+
+        plugins: {
+            title: {
+                display: true,
+                text: 'Custom Chart Title'
+            }
+        }
+    };
+
+    // Création du graphique
+    var myChartTR = new Chart(ctxTR, {
+        type: 'line',
+        data: dataTR,
+        options: optionsTR
+    });
+</script>

@@ -6,22 +6,6 @@ const fixieUrl = url.parse(process.env.FIXIE_URL || 'http://fixie:kmzzVSUwFDuEsj
 const fixieAuth = fixieUrl.auth.split(':');
 const apiKey = 'REDACTED_API_KEY';
 
-
-async function fetchDataFromBrawlStars(playerTag) {
-    try {
-        const response = await axios.get(`https://api.brawlstars.com/v1/players/%23${playerTag}`, {
-            headers: {
-                Authorization: `Bearer ${apiKey}`,
-                Accept: 'application/json'
-            },
-        });
-        return response.data;
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-}
-
 async function fetchDataFromBrawlStarsLocal(playerTag) {
 
     try {
@@ -39,4 +23,4 @@ async function fetchDataFromBrawlStarsLocal(playerTag) {
     }
 }
 
-module.exports = { fetchDataFromBrawlStars, fetchDataFromBrawlStarsLocal };
+module.exports = { fetchDataFromBrawlStarsLocal };

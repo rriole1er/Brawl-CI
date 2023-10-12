@@ -29,61 +29,11 @@
 
             <!-------------------------------------- Graphique  ----------------------->
 
-           <div class="container">
-                <canvas id="ChartTemp" width="3000" height="500"></canvas>
+           <div class="container" style="height: 450px;">
+                <canvas id="ChartTR" width="917" height="500"></canvas>
 
-                <script>
-                    // Récupération du canvas
-                    var ctxTemp = document.getElementById('ChartTemp').getContext('2d');
+                <%- include('graph.ejs') %>
 
-
-
-                    // Données du graphique
-                    var dataTemp = {
-                        labels: [<%=days%>],
-                        datasets: [{
-                            label: 'Mois TR',
-                            data: [<%=values%>],
-                            backgroundColor: [
-                                'rgba(229, 13, 236, 0.5)',
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                            ],
-                            borderWidth: 1
-                        }],
-                    };
-
-                    // Options du graphique
-                    var optionsTemp = {
-                        scales: {
-                            y: {
-                                suggestedMax: 40,
-                                ticks: {
-                                    beginAtZero: true,
-                                    font: {
-                                        size: 18
-                                    }
-                                }
-                            },
-                            x: {
-                                ticks: {
-                                    font: {
-                                        size: 18
-                                    }
-                                },
-                                type: 'time',
-                            }
-                        }
-                    };
-
-                    // Création du graphique
-                    var myChartTemp = new Chart(ctxTemp, {
-                        type: 'line',
-                        data: dataTemp,
-                        options: optionsTemp
-                    });
-                </script>
             </div>
 
 
