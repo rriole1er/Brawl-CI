@@ -53,17 +53,60 @@ class DataProcessor {
 
         const days = [];
         const values = [];
+        
 
         for (const capture of captures) {
             const timestamp = capture.timestamp;
             const date = timestamp.split(' ')[0];
             const value = capture.value;
-            const day = parseInt(date.split('-')[2]);
+            var litteralMonth ="";
 
-            days.push(day);
+            const day = date.split('-')[2];
+            const month = parseInt(date.split('-')[1]);
+
+            switch(month){
+                case 1 :
+                    litteralMonth="Jan " +day;
+                    break;
+                case 2 :
+                    litteralMonth="Fev " +day;
+                    break;
+                case 3 :
+                    litteralMonth="Mars "+day;
+                    break;
+                case 4 :
+                    litteralMonth="Avr "+day;
+                    break;
+                case 5 :
+                    litteralMonth="Mai "+day;
+                    break;
+                case 6 :
+                    litteralMonth="Juin "+day;
+                    break;
+                case 7 :
+                    litteralMonth="Juil "+day;
+                    break;
+                case 8 :
+                    litteralMonth="Aou "+day;
+                    break;
+                case 9 :
+                    litteralMonth="Sep "+day;
+                    break;
+                case 10 :
+                    litteralMonth="Oct "+day;
+                    break;
+                case 11 :
+                    litteralMonth="Nov "+day;
+                    break;
+                case 12 :
+                    litteralMonth="Dec "+day;
+                    break;
+
+                    
+            }
+
+            days.push(litteralMonth);
             values.push(value);
-
-            
         }
 
         return [days, values];
