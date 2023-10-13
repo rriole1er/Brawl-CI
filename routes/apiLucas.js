@@ -3,6 +3,7 @@ const router = express.Router();
 
 const { fetchDataFromBrawlStarsLocal } = require('../public/js/apicall');
 const DataProcessor = require('../public/js/stat'); // Chemin vers la classe Stat
+const { fetchDataFromBattleLog } = require('../public/js/apicall');
 
 const tag = '20GGQPVVL'
 
@@ -11,7 +12,7 @@ router.get('/', async (req, res) => {
     try {
         // Utilisez votre fonction fetchDataFromBrawlStars pour récupérer les données sans utiliser le proxy
         const stats = await fetchDataFromBrawlStarsLocal(tag);
-
+        const battlelog = await fetchDataFromBattleLog(tag);
         // Définissez le critère de filtrage en fonction de la requête de l'utilisateur (par défaut sur "trophies")
         const filterCriteria = req.query.filter || 'trophies';
 
@@ -35,7 +36,7 @@ router.get('/', async (req, res) => {
         const [days, values ] = dataProcessor.getDaysAndValues(lastCaptures);
 
 
-        res.render('vue', { data: stats, playerName: "lucas", days :days, values: values });
+        res.render('vue', { data: stats, playerName: "lucas", days :days, values: values, battlelog: battlelog });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
