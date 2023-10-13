@@ -19,17 +19,17 @@ class DataProcessor {
             console.error('Les données n\'ont pas été lues. Utilisez la méthode "readData" pour lire les données JSON.');
             return;
         }
-
-        // Créez un objet pour stocker la dernière capture de chaque jour
+    
+        // Créez un objet pour stocker la dernière valeur de chaque jour
         const lastCapturesByDay = {};
-
+    
         for (const timestamp in this.data) {
             if (this.data.hasOwnProperty(timestamp)) {
                 const date = timestamp.split(' ')[0];
                 const value = this.data[timestamp];
-
-                // Si la date n'existe pas dans lastCapturesByDay ou si le timestamp est plus récent, mettez à jour la valeur
-                if (!lastCapturesByDay[date] || timestamp > lastCapturesByDay[date].timestamp) {
+    
+                // Si la date n'existe pas dans lastCapturesByDay ou si l'heure est plus récente, mettez à jour la valeur
+                if (!lastCapturesByDay[date] || new Date(timestamp) > new Date(lastCapturesByDay[date].timestamp)) {
                     lastCapturesByDay[date] = {
                         timestamp,
                         value,
@@ -37,10 +37,10 @@ class DataProcessor {
                 }
             }
         }
-
+    
         // Convertissez lastCapturesByDay en un tableau d'objets
         const lastCapturesArray = Object.values(lastCapturesByDay);
-
+    
         return lastCapturesArray;
     }
 
