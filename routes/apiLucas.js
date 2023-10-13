@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-
+const { loadDataPlayer} = require('../public/js/utils');
 const { fetchDataFromBrawlStarsLocal } = require('../public/js/apicall');
-const DataProcessor = require('../public/js/stat'); // Chemin vers la classe Stat
 
 const tag = '20GGQPVVL'
 
@@ -23,19 +22,11 @@ router.get('/', async (req, res) => {
             stats.brawlers.sort((a, b) => b.highestTrophies - a.highestTrophies);
         }
 
-        // Créez une instance de DataProcessor avec le chemin du fichier JSON
-        const dataProcessor = new DataProcessor('./public/js/tropheesLuc4gbox.json');
-
-        // Lisez les données du fichier JSON
-        dataProcessor.readData();
-
-        // Traitez les données pour obtenir les dernières captures de chaque jour
-        const lastCaptures = dataProcessor.process();
-
-        const [days, values ] = dataProcessor.getDaysAndValues(lastCaptures);
+        const [days, values ] = loadDataPlayer("Remyto");
+        const [days2, values2 ] = loadDataPlayer("Luc4gbox");
 
 
-        res.render('vue', { data: stats, playerName: "lucas", days :days, values: values });
+        res.render('vue', { data: stats, playerName: "lucas", days :days, values: values,values2: values2 });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erreur lors de la récupération des données.' });

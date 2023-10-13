@@ -6,19 +6,43 @@
     // Données du graphique
     var dataTR = {
         labels: <%- JSON.stringify(days) %>, // Utilisez JSON.stringify pour éviter l'encodage HTML
-        datasets: [{
-            label: 'Mois TR',
+        datasets: [
+        {
+            label: 'Trophées Remyto',
             data: [<%=values %>], // Utilisez JSON.stringify pour éviter l'encodage HTML
             fill: false,
             borderColor: [
                 'rgba(255, 215, 0, 1)',
             ],
-            tension: 0.2
-        }],
+            tension: 0.2,
+            hidden: <%- playerName === "lucas" ? "true" : "false" %>
+        },
+
+        {
+            label: 'Trophées Lucas',
+            data: [<%=values2 %>], // Utilisez JSON.stringify pour éviter l'encodage HTML
+            fill: false,
+            borderColor: [
+                'rgb(106,90,205)',
+            ],
+            tension: 0.2,
+            hidden: <%- playerName === "remy" ? "true" : "false" %>, // Masquer la ligne si playerName est "Remy",
+        }
+
+        ],
     };
 
     // Options du graphique
     var optionsTR = {
+        responsive:true,
+
+        plugins: {
+            title: {
+                display: true,
+                text: 'Custom Chart Title'
+            }
+        },
+
         scales: {
             y: {
                 suggestedMax: 500,
@@ -29,6 +53,19 @@
                     }
                 }
             },
+            y1: {
+                suggestedMax: 500,
+                ticks: {
+                    beginAtZero: true,
+                    font: {
+                        size: 18
+                    }
+                },
+
+                grid: {
+                    drawOnChartArea: false, // only want the grid lines for one axis to show up
+                },
+            },
             x: {
                 ticks: {
                     font: {
@@ -36,13 +73,6 @@
                     }
                 },
                 type: 'time',
-            }
-        },
-
-        plugins: {
-            title: {
-                display: true,
-                text: 'Custom Chart Title'
             }
         }
     };
