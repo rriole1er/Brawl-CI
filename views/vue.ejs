@@ -79,40 +79,31 @@
 
             <!------------------------- Fin statistiques des modes --------------------->
 
-            <!------------------------- Statistiques des trophées pour Luc4gbox --------------------->
+            <!------------------------- Statistiques des trophées pour le joueur --------------------->
             <div class="container">
-                <h2>Statistiques des trophées pour Luc4gbox :</h2>
-
+                <h2>Statistiques des trophées pour <%= data.name %> :</h2>
+                
                 <% 
-                    var brawlerTrophies = {};
+                    var trophiesParBrawler = {};
 
-                    if (battlelog && battlelog.items) {
-                        battlelog.items.forEach(function(battleItem) {
-                            var trophyChange = battleItem.battle.trophyChange || 0; // Si trophyChange est undefined, il sera traité comme 0
+                    (battlelog.items || []).forEach(battleItem => {
+                        let trophyChange = battleItem.battle && battleItem.battle.trophyChange || 0;
 
-                            battleItem.battle.teams.forEach(function(team) {
-                                team.forEach(function(player) {
-                                    if (player.name === "Luc4gbox") {
-                                        if (!brawlerTrophies[player.brawler.name]) {
-                                            brawlerTrophies[player.brawler.name] = 0;
-                                        }
-                                        brawlerTrophies[player.brawler.name] += trophyChange; 
-                                    }
-                                });
-                            });
+                        (battleItem.battle.teams || []).flat().forEach(player => {
+                            if (player.name === data.name) {
+                                trophiesParBrawler[player.brawler.name] = (trophiesParBrawler[player.brawler.name] || 0) + trophyChange;
+                            }
                         });
-                    }
+                    });
                 %>
 
-                <% for (var brawler in brawlerTrophies) { %>
+                <% for (var brawler in trophiesParBrawler) { %>
                     <p>
-                        <%= brawler %> : <%= brawlerTrophies[brawler] %> trophées gagnés.
+                        <%= brawler %> : <%= trophiesParBrawler[brawler] %> trophées gagnés/perdus.
                     </p>
                 <% } %>
-
             </div>
-
-            <!------------------------- Fin statistiques des trophées pour Luc4gbox --------------------->
+            <!------------------------- Fin statistiques des trophées pour le joueur --------------------->
 
             <!------------------------- Fin Affichage Battlelog --------------------->
 
