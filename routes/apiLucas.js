@@ -4,7 +4,6 @@ const { loadDataPlayer} = require('../public/js/utils');
 const { fetchDataFromBrawlStarsLocal } = require('../public/js/apicall');
 const { fetchDataFromBattleLog } = require('../public/js/apicall');
 
-
 const tag = '20GGQPVVL'
 
 // La route '/' pour récupérer les données localement
@@ -28,9 +27,7 @@ router.get('/', async (req, res) => {
         const [days2, values2 ] = loadDataPlayer("Luc4gbox");
 
 
-
-        res.render('vue', { data: stats, playerName: "lucas", days :days, values: values,values2: values2,battlelog: battlelog });
-
+        res.render('vue', { data: stats,playerName:"lucas", days :days, values: values,values2: values2,battlelog: battlelog });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
