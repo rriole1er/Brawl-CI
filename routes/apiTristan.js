@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
         const [days2, values2 ] = loadDataPlayer("Luc4gbox");
 
 
-        res.render('vue', { data: stats,playerName:"Tristan", days :days, values: values, values2: values2 });
+        res.render('vue', { data: stats,playerName:"Tristan", days :days, values: values, values2: values2,battlelog: battlelog });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
