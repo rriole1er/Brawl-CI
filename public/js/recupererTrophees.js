@@ -42,7 +42,8 @@ async function mettreAJourFichierTrophees(tagJoueur, nomFichier) {
 function fetchAndUpdateData() {
     Promise.all([
         mettreAJourFichierTrophees("20GGQPVVL", 'public/js/tropheesLuc4gbox.json'),
-        mettreAJourFichierTrophees("VUGVJYUY", 'public/js/tropheesElRemyto.json')
+        mettreAJourFichierTrophees("VUGVJYUY", 'public/js/tropheesElRemyto.json'),
+        mettreAJourFichierTrophees("PRRRJG9 ", 'public/js/tropheesGirafeKool.json')
     ]).then(() => {
         console.log("Les fichiers de trophées ont été mis à jour.");
     }).catch((err) => {

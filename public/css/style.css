@@ -43,7 +43,7 @@ h1 {
 }
 
 .character img {
-    max-width: 222px;
+    max-width: 260px;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -53,6 +53,29 @@ h1 {
     /* Augmentez la taille de 10% */
     transition: transform 0.3s ease;
     /* Ajoutez une transition fluide */
+}
+
+/* Styles pour les écrans plus petits (moins de 600px de large) */
+@media screen and (max-width: 600px) {
+    .character-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .character {
+        margin-bottom: 20px;
+    }
+
+    .character img {
+        max-width: 100%; /* Pour s'adapter à la largeur de l'écran */
+    }
+}
+
+/* Styles pour les écrans très petits (moins de 400px de large) */
+@media screen and (max-width: 400px) {
+    .character p {
+        font-size: 14px;
+    }
 }
 
 .container .brawlers-container {
