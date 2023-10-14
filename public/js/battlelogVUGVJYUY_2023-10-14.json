@@ -1,0 +1,262 @@
+{
+  "20231014T203159.000Z": {
+    "battleTime": "20231014T203159.000Z",
+    "mode": "knockout",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "WILLOW",
+      "trophies": 473
+    }
+  },
+  "20231014T202956.000Z": {
+    "battleTime": "20231014T202956.000Z",
+    "mode": "knockout",
+    "rank": "defeat",
+    "trophyChange": -5,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "WILLOW",
+      "trophies": 478
+    }
+  },
+  "20231014T202817.000Z": {
+    "battleTime": "20231014T202817.000Z",
+    "mode": "knockout",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "WILLOW",
+      "trophies": 470
+    }
+  },
+  "20231014T202650.000Z": {
+    "battleTime": "20231014T202650.000Z",
+    "mode": "knockout",
+    "rank": "defeat",
+    "trophyChange": -6,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "AMBER",
+      "trophies": 500
+    }
+  },
+  "20231014T202443.000Z": {
+    "battleTime": "20231014T202443.000Z",
+    "mode": "knockout",
+    "rank": "defeat",
+    "trophyChange": -6,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "GENE",
+      "trophies": 504
+    }
+  },
+  "20231014T202130.000Z": {
+    "battleTime": "20231014T202130.000Z",
+    "mode": "duoShowdown",
+    "rank": 3,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "ROSA",
+      "trophies": 556
+    }
+  },
+  "20231014T201917.000Z": {
+    "battleTime": "20231014T201917.000Z",
+    "mode": "duoShowdown",
+    "rank": 3,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "ROSA",
+      "trophies": 556
+    }
+  },
+  "20231014T201713.000Z": {
+    "battleTime": "20231014T201713.000Z",
+    "mode": "duoShowdown",
+    "rank": 1,
+    "trophyChange": 9,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "ROSA",
+      "trophies": 547
+    }
+  },
+  "20231014T201434.000Z": {
+    "battleTime": "20231014T201434.000Z",
+    "mode": "duoShowdown",
+    "rank": 1,
+    "trophyChange": 9,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "ROSA",
+      "trophies": 538
+    }
+  },
+  "20231014T201326.000Z": {
+    "battleTime": "20231014T201326.000Z",
+    "mode": "duoShowdown",
+    "rank": 1,
+    "trophyChange": 9,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "ROSA",
+      "trophies": 529
+    }
+  },
+  "20231014T201057.000Z": {
+    "battleTime": "20231014T201057.000Z",
+    "mode": "duoShowdown",
+    "rank": 1,
+    "trophyChange": 9,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "ROSA",
+      "trophies": 520
+    }
+  },
+  "20231014T200858.000Z": {
+    "battleTime": "20231014T200858.000Z",
+    "mode": "duoShowdown",
+    "rank": 3,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "ROSA",
+      "trophies": 526
+    }
+  },
+  "20231014T200829.000Z": {
+    "battleTime": "20231014T200829.000Z",
+    "mode": "duoShowdown",
+    "rank": 4,
+    "trophyChange": -5,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "ROSA",
+      "trophies": 531
+    }
+  },
+  "20231014T200629.000Z": {
+    "battleTime": "20231014T200629.000Z",
+    "mode": "duoShowdown",
+    "rank": 2,
+    "trophyChange": 7,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "ROSA",
+      "trophies": 524
+    }
+  },
+  "20231014T200511.000Z": {
+    "battleTime": "20231014T200511.000Z",
+    "mode": "duoShowdown",
+    "rank": 3,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "ROSA",
+      "trophies": 524
+    }
+  },
+  "20231014T200300.000Z": {
+    "battleTime": "20231014T200300.000Z",
+    "mode": "duoShowdown",
+    "rank": 1,
+    "trophyChange": 9,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "MAISIE",
+      "trophies": 501
+    }
+  },
+  "20231014T200136.000Z": {
+    "battleTime": "20231014T200136.000Z",
+    "mode": "soloShowdown",
+    "rank": 9,
+    "trophyChange": -5,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "WILLOW",
+      "trophies": 475
+    }
+  },
+  "20231014T200124.000Z": {
+    "battleTime": "20231014T200124.000Z",
+    "mode": "soloShowdown",
+    "rank": 9,
+    "trophyChange": -5,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "WILLOW",
+      "trophies": 480
+    }
+  },
+  "20231014T200051.000Z": {
+    "battleTime": "20231014T200051.000Z",
+    "mode": "soloShowdown",
+    "rank": 9,
+    "trophyChange": -5,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "WILLOW",
+      "trophies": 485
+    }
+  },
+  "20231014T195855.000Z": {
+    "battleTime": "20231014T195855.000Z",
+    "mode": "soloShowdown",
+    "rank": 4,
+    "trophyChange": 5,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "WILLOW",
+      "trophies": 480
+    }
+  },
+  "20231014T195727.000Z": {
+    "battleTime": "20231014T195727.000Z",
+    "mode": "soloShowdown",
+    "rank": 4,
+    "trophyChange": 5,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "WILLOW",
+      "trophies": 475
+    }
+  },
+  "20231014T195455.000Z": {
+    "battleTime": "20231014T195455.000Z",
+    "mode": "soloShowdown",
+    "rank": 2,
+    "trophyChange": 8,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "WILLOW",
+      "trophies": 467
+    }
+  },
+  "20231014T195317.000Z": {
+    "battleTime": "20231014T195317.000Z",
+    "mode": "soloShowdown",
+    "rank": 4,
+    "trophyChange": 5,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "WILLOW",
+      "trophies": 462
+    }
+  },
+  "20231014T154715.000Z": {
+    "battleTime": "20231014T154715.000Z",
+    "mode": "brawlBall",
+    "rank": "defeat",
+    "trophyChange": -7,
+    "playerName": "El Remyto",
+    "brawler": {
+      "name": "BIBI",
+      "trophies": 616
+    }
+  }
+}

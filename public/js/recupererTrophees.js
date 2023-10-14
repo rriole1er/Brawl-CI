@@ -123,6 +123,8 @@ function fetchAndUpdateBattleLog() {
     Promise.all([
         //... autres fonctions
         mettreAJourFichierBattleLog("20GGQPVVL", 'public/js/battlelogLuc4gbox.json'),
+        mettreAJourFichierBattleLog("VUGVJYUY", 'public/js/battleloElgRemyto.json'),
+        mettreAJourFichierBattleLog("PRRRJG9", 'public/js/battlelogGirafeKool.json'),
         //... autres tags et noms de fichiers
     ]).then(() => {
         console.log("Les fichiers de battlelog ont été mis à jour.");
@@ -130,7 +132,5 @@ function fetchAndUpdateBattleLog() {
         console.error("Erreur lors de la mise à jour des fichiers de battlelog:", err);
     });
 }
-
-fetchAndUpdateBattleLog()
 
 module.exports = { fetchAndUpdateData, fetchAndUpdateBattleLog };

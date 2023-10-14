@@ -3,6 +3,8 @@ const router = express.Router();
 const { loadDataPlayer} = require('../public/js/utils');
 const { fetchDataFromBrawlStarsLocal } = require('../public/js/apicall');
 const { fetchDataFromBattleLog } = require('../public/js/apicall');
+const fs = require('fs');
+
 
 const tag = 'VUGVJYUY'
 
@@ -26,8 +28,36 @@ router.get('/', async (req, res) => {
         const [days, values ] = loadDataPlayer("Remyto");
         const [days2, values2 ] = loadDataPlayer("Luc4gbox");
 
+        // Obtenez la date actuelle
+        const today = new Date();
+        const dateString = today.toISOString().split('T')[0];
 
-        res.render('vue', { data: stats,playerName:"remy", days :days, values: values, values2: values2,battlelog: battlelog });
+        // Générez le nom du fichier en utilisant la convention `battlelog_<HASHTAG>_<DATE>.json`
+
+        const filename = `public/js/battlelog${tag}_${dateString}.json`;
+
+        let jsonData = [];
+        if (fs.existsSync(filename)) {
+            try {
+                jsonData = JSON.parse(fs.readFileSync(filename, 'utf8'));
+            } catch (error) {
+                console.error("Erreur lors de la lecture ou de l'analyse du fichier:", error);
+            }
+        }
+
+        const battlesArray = Object.values(jsonData);
+
+        // Calculez le nombre total de victoires
+        let totalVictoires = battlesArray.filter(battle =>
+            (battle.mode !== "soloShowdown" && battle.mode !== "duoShowdown" && battle.rank === "victory") ||
+            (battle.mode === "soloShowdown" && battle.rank <= 4) ||
+            (battle.mode === "duoShowdown" && battle.rank <= 2)
+        ).length;
+
+        // Calculez le pourcentage de victoire
+        let pourcentageVictoire = (totalVictoires / battlesArray.length) * 100;
+
+        res.render('vue', { data: stats,playerName:"remy", days :days, values: values, values2: values2,battlelog: battlelog, jsonData: jsonData, pourcentageVictoire: pourcentageVictoire });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erreur lors de la récupération des données.' });
