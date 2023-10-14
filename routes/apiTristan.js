@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     try {
         // Utilisez votre fonction fetchDataFromBrawlStars pour récupérer les données sans utiliser le proxy
         const stats = await fetchDataFromBrawlStarsLocal(tag);
-
+        const battlelog = await fetchDataFromBattleLog(tag);
         // Définissez le critère de filtrage en fonction de la requête de l'utilisateur (par défaut sur "trophies")
         const filterCriteria = req.query.filter || 'trophies';
 
