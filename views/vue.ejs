@@ -38,11 +38,10 @@
 
             <!------------------------- Affichage Battlelog --------------------->
 
-            <h2>BattleLog :</h2>
-
             <!------------------------- Statistiques des modes --------------------->
             <div class="container">
-                <h2>Pourcentage de victoires :</h2>
+                <h2>BattleLog :</h2>
+                <h3>Pourcentage de victoires :</h3>
 
                 <% 
                     var modesStats = {
@@ -78,39 +77,41 @@
 
             <!------------------------- Fin statistiques des modes --------------------->
 
-
+            <!------------------------- Statistiques des trophées pour Luc4gbox --------------------->
             <div class="container">
-                <% if (battlelog.items && battlelog.items.length> 0) { %>
-                    <% battlelog.items.forEach(function(battleItem) { %>
-                        <div class="battle-item">
-                            <h3>Date de la bataille:
-                                <% var dateParts=battleItem.battleTime.split('T'); var dateSegment=dateParts[0]; var
-                                    timeSegment=dateParts[1].split('.')[0]; var year=dateSegment.substring(0, 4); var
-                                    month=dateSegment.substring(4, 6); var day=dateSegment.substring(6, 8); var
-                                    hour=timeSegment.substring(0, 2); var minute=timeSegment.substring(2, 4); var
-                                    second=timeSegment.substring(4, 6); var formattedDate=new Date(year, month - 1, day,
-                                    hour, minute, second); if (!isNaN(formattedDate.getTime())) { %>
-                                    <%= formattedDate.toLocaleString('fr-FR') %>
-                                        <% } else { %>Date invalide<% } %>
-                            </h3>
-                            <p>Mode: <%= battleItem.event.mode %>
-                            </p>
-                            <p>Carte: <%= battleItem.event.map %>
-                            </p>
-                            <% if(battleItem.battle.result) { %>
-                                <p>Résultat: <%= battleItem.battle.result %>
-                                </p>
-                                <% } else { %>
-                                    <p>Rang: <%= battleItem.battle.rank %>
-                                    </p>
-                                    <% } %>
-                        </div>
-                        <hr>
-                        <% }); %>
-                            <% } else { %>
-                                <p>Aucun BattleLog disponible pour le moment.</p>
-                                <% } %>
+                <h2>Statistiques des trophées pour Luc4gbox :</h2>
+
+                <% 
+                    var brawlerTrophies = {};
+
+                    if (battlelog && battlelog.items) {
+                        battlelog.items.forEach(function(battleItem) {
+                            var trophyChange = battleItem.battle.trophyChange || 0; // Si trophyChange est undefined, il sera traité comme 0
+
+                            battleItem.battle.teams.forEach(function(team) {
+                                team.forEach(function(player) {
+                                    if (player.name === "Luc4gbox") {
+                                        if (!brawlerTrophies[player.brawler.name]) {
+                                            brawlerTrophies[player.brawler.name] = 0;
+                                        }
+                                        brawlerTrophies[player.brawler.name] += trophyChange; 
+                                    }
+                                });
+                            });
+                        });
+                    }
+                %>
+
+                <% for (var brawler in brawlerTrophies) { %>
+                    <p>
+                        <%= brawler %> : <%= brawlerTrophies[brawler] %> trophées gagnés.
+                    </p>
+                <% } %>
+
             </div>
+
+            <!------------------------- Fin statistiques des trophées pour Luc4gbox --------------------->
+
             <!------------------------- Fin Affichage Battlelog --------------------->
 
 
