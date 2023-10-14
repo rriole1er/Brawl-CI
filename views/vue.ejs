@@ -29,12 +29,92 @@
 
             <!-------------------------------------- Graphique  ----------------------->
 
+
            <div class="container" style="position:relative; height: 61.5vh;">
+
                 <canvas id="ChartTR" width="917" height="500"></canvas>
 
                 <%- include('graph.ejs') %>
 
             </div>
+
+            <!------------------------- Affichage Battlelog --------------------->
+
+            <!------------------------- Statistiques des modes --------------------->
+            <div class="container">
+                <h2>BattleLog :</h2>
+                <h3>Pourcentage de victoires :</h3>
+
+                <% 
+                    var modesStats = {
+                        "brawlBall": { total: 0, wins: 0 },
+                        "duoShowdown": { total: 0, wins: 0 }
+                        // ... ajoutez d'autres modes si nécessaire
+                    }; 
+
+                    if (battlelog && battlelog.items) {
+                        battlelog.items.forEach(function(battleItem) {
+                            if (modesStats[battleItem.event.mode]) {
+                                modesStats[battleItem.event.mode].total += 1;
+                                if (battleItem.event.mode === 'brawlBall' && battleItem.battle.result === 'victory') {
+                                    modesStats[battleItem.event.mode].wins += 1;
+                                } else if (battleItem.event.mode === 'duoShowdown' && (battleItem.battle.rank === 1 || battleItem.battle.rank === 2)) {
+                                    modesStats[battleItem.event.mode].wins += 1;
+                                }
+                                // ... ajoutez des conditions pour d'autres modes si nécessaire
+                            }
+                        });
+                    }
+                %>
+
+                <% for (var mode in modesStats) { %>
+                    <p>
+                        <%= mode.charAt(0).toUpperCase() + mode.slice(1) %> :
+                            <%= modesStats[mode].total %> parties,
+                            <%= ((modesStats[mode].wins / modesStats[mode].total) * 100).toFixed(2) %> % de victoires.
+                    </p>
+                <% } %>
+
+            </div>
+
+            <!------------------------- Fin statistiques des modes --------------------->
+
+            <!------------------------- Statistiques des trophées pour Luc4gbox --------------------->
+            <div class="container">
+                <h2>Statistiques des trophées pour Luc4gbox :</h2>
+
+                <% 
+                    var brawlerTrophies = {};
+
+                    if (battlelog && battlelog.items) {
+                        battlelog.items.forEach(function(battleItem) {
+                            var trophyChange = battleItem.battle.trophyChange || 0; // Si trophyChange est undefined, il sera traité comme 0
+
+                            battleItem.battle.teams.forEach(function(team) {
+                                team.forEach(function(player) {
+                                    if (player.name === "Luc4gbox") {
+                                        if (!brawlerTrophies[player.brawler.name]) {
+                                            brawlerTrophies[player.brawler.name] = 0;
+                                        }
+                                        brawlerTrophies[player.brawler.name] += trophyChange; 
+                                    }
+                                });
+                            });
+                        });
+                    }
+                %>
+
+                <% for (var brawler in brawlerTrophies) { %>
+                    <p>
+                        <%= brawler %> : <%= brawlerTrophies[brawler] %> trophées gagnés.
+                    </p>
+                <% } %>
+
+            </div>
+
+            <!------------------------- Fin statistiques des trophées pour Luc4gbox --------------------->
+
+            <!------------------------- Fin Affichage Battlelog --------------------->
 
 
             <!------------------------------- Brawler affichage  ---------------------------------->
