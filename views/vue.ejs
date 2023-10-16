@@ -6,7 +6,7 @@
 
             <!------------------------------- Stat joueur  ---------------------------------->
 
-            <div class="container">
+            <div class="container collapsible">
                 <h1>Données de <%=data.name%>
                 </h1>
                 <h3>(<%=data.tag%>)</h3>
@@ -30,21 +30,37 @@
             <!-------------------------------------- Graphique  ----------------------->
 
 
-           <div class="container" style="position:relative; height: 61.5vh;">
+           <div class="container collapsible" style="position:relative; height: 61.5vh;">
+
+           <div class="collapse-button">
+                   <i class="fas fa-arrow-down arrow-icon"></i>
+            </div>
+
+            <h1>Graph de <%=data.name%>
+
+                <div class="content">
 
                 <canvas id="ChartTR" width="917" height="500"></canvas>
 
                 <%- include('graph.ejs') %>
 
+                </div>
+
+                
             </div>
 
             <!------------------------- Affichage Battlelog --------------------->
 
             <!------------------------- Statistiques des modes --------------------->
-            <div class="container">
+            <div class="container collapsible">
+                <div class="collapse-button">
+                   <i class="fas fa-arrow-down arrow-icon"></i>
+                </div>
+
                 <h2>BattleLog :</h2>
                 <h3>Pourcentage de victoires :</h3>
 
+                    <div class ="content">
                 <% 
                     var modesStats = {
                         "brawlBall": { total: 0, wins: 0 },
@@ -76,12 +92,20 @@
                 <% } %>
 
             </div>
+        </div>
 
             <!------------------------- Fin statistiques des modes --------------------->
 
             <!------------------------- Statistiques des trophées pour le joueur --------------------->
-            <div class="container">
+            <div class="container collapsible">
+
+                <div class="collapse-button">
+                    <i class="fas fa-arrow-down arrow-icon"></i>
+                </div>
+
                 <h2>Statistiques des trophées pour <%= data.name %> :</h2>
+
+                 <div class ="content">
                 
                 <% 
                     var trophiesParBrawler = {};
@@ -102,6 +126,8 @@
                         <%= brawler %> : <%= trophiesParBrawler[brawler] %> trophées gagnés/perdus.
                     </p>
                 <% } %>
+
+                </div>
             </div>
             <!------------------------- Fin statistiques des trophées pour le joueur --------------------->
 
@@ -125,6 +151,8 @@
                     </label>
                     <button type="submit">Filtrer</button>
                 </form>
+
+
 
                 <div class="brawlers-container">
                     <% data.brawlers.forEach(function(brawler) { %>
@@ -155,6 +183,33 @@
                 </div>
                 <% } %>
 
+
+
+
+    <script>
+
+        $(document).ready(function () {
+            $(".collapsible .content").show(); // Affiche le contenu au chargement de la page
+
+            $(".collapsible .collapse-button").on("click", function () {
+                var container = $(this).parent();
+                var content = container.find(".content");
+                var arrowIcon = $(this).find(".arrow-icon");
+
+                if (content.is(":visible")) {
+                    content.slideUp();
+                    arrowIcon.css("transform", "rotate(90deg)"); // Rotation de la flèche vers le bas
+                } else {
+                    content.slideDown();
+                    arrowIcon.css("transform", "rotate(0deg)"); // Rotation de la flèche vers le haut
+                }
+            });
+        });
+
+    </script>
+
+
+
     </body>
 
-    </html
+    </html>
