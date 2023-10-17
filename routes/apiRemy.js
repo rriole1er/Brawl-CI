@@ -35,6 +35,10 @@ router.get('/', async (req, res) => {
 
         const [days, values ] = loadDataPlayer("Remyto");
         const [days2, values2 ] = loadDataPlayer("Luc4gbox");
+        const [days3, values3] = loadDataPlayer("Tristan");
+
+        console.log(values3,days3);
+
 
         // Obtenez la date actuelle
         const today = new Date();
@@ -65,7 +69,7 @@ router.get('/', async (req, res) => {
         // Calculez le pourcentage de victoire
         let pourcentageVictoire = (totalVictoires / battlesArray.length) * 100;
 
-        res.render('vue', { data: stats,playerName:"remy", days :days, values: values, values2: values2,battlelog: battlelog, jsonData: jsonData, pourcentageVictoire: pourcentageVictoire });
+        res.render('vue', { data: stats,playerName:"remy", days :days, values: values, values3:values3, values2: values2,battlelog: battlelog, jsonData: jsonData, pourcentageVictoire: pourcentageVictoire });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Erreur lors de la récupération des données.' });

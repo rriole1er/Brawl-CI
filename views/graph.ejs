@@ -27,6 +27,16 @@
             ],
             tension: 0.2,
             hidden: <%- playerName === "remy" ? "true" : "false" %>, // Masquer la ligne si playerName est "Remy",
+        },
+        {
+            label: 'Trophées Tristan',
+            data: [<%=values3 %>], // Utilisez JSON.stringify pour éviter l'encodage HTML
+            fill: false,
+            borderColor: [
+                'rgb(106,90,205)',
+            ],
+            tension: 0.2,
+            hidden: <%- playerName === "Tristan" ? "true" : "false" %>, // Masquer la ligne si playerName est "Remy",
         }
 
         ],
@@ -66,6 +76,21 @@
                     drawOnChartArea: false, // only want the grid lines for one axis to show up
                 },
             },
+
+            y2: {
+                suggestedMax: 500,
+                ticks: {
+                    beginAtZero: true,
+                    font: {
+                        size: 18
+                    }
+                },
+
+                grid: {
+                    drawOnChartArea: false, // only want the grid lines for one axis to show up
+                },
+            },
+
             x: {
                 ticks: {
                     font: {

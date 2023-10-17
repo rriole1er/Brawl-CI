@@ -13,11 +13,17 @@ function loadDataPlayer(name) {
 
         }   
 
-        else {
+        else if(name=="Luc4gbox") {
             const filePath = path.join(__dirname, 'tropheesLuc4gbox.json');
             // Créez une instance de DataProcessor avec le chemin du fichier JSON
             dataProcessor = new DataProcessor(filePath);
 
+        }
+
+        else{
+            const filePath = path.join(__dirname, 'tropheesGirafeKool.json');
+            // Créez une instance de DataProcessor avec le chemin du fichier JSON
+            dataProcessor = new DataProcessor(filePath);
         }
 
         // Lisez les données du fichier JSON
