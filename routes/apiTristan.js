@@ -24,6 +24,14 @@ router.get('/', async (req, res) => {
             stats.brawlers.sort((a, b) => b.highestTrophies - a.highestTrophies);
         }
 
+        // Filtrer les brawlers par nom si un terme de recherche est présent
+        const searchTerm = req.query.search;
+        if (searchTerm) {
+            stats.brawlers = stats.brawlers.filter(brawler => {
+                return brawler.name.toLowerCase().includes(searchTerm.toLowerCase());
+            });
+        }
+
         const [days, values ] = loadDataPlayer("Remyto");
         const [days2, values2 ] = loadDataPlayer("Luc4gbox");
 
@@ -64,4 +72,6 @@ router.get('/', async (req, res) => {
 });
 
 
+
 module.exports = router;
+
