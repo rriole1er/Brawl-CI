@@ -25,7 +25,7 @@ h1 {
 }
 
 .container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -44,6 +44,7 @@ h1 {
 
 .character img {
     max-width: 260px;
+    max-height:260px;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -128,3 +129,47 @@ h1 {
     top: 0;
     transition: transform 0.3s ease;
 }
+
+/* Ajoutez ces styles pour le formulaire Brawl Stars */
+.brawl-stars-form {
+    background-color: #38444D; /* Gris foncé */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px;
+  }
+  
+  .brawl-stars-form h1 {
+    color: #F4D03F; /* Jaune */
+  }
+  
+  .brawl-stars-form label {
+    color: #F4D03F; /* Jaune */
+  }
+  
+  .brawl-stars-form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #1E3C4E; /* Bleu foncé */
+    border-radius: 5px;
+  }
+  
+  .brawl-stars-form input[type="text"]:focus {
+    border: 1px solid #F4D03F; /* Jaune */
+  }
+  
+  .brawl-stars-form input[type="submit"] {
+    background-color: #F4D03F; /* Jaune */
+    color: #1E3C4E; /* Bleu foncé */
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .brawl-stars-form input[type="submit"]:hover {
+    background-color: #D4AC0D; /* Jaune plus foncé */
+  }

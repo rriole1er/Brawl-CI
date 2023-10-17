@@ -1,0 +1,194 @@
+<%- include('header.html') %>
+
+    <body>
+
+        <% if(data !=null) { %>
+
+            <!------------------------------- Stat joueur  ---------------------------------->
+
+            <div class="container collapsible">
+                <h1>Données de <%=data.name%>
+                </h1>
+                <h3>(<%=data.tag%>)</h3>
+                <div class="character-container">
+                    <div class="character">
+                        <h3> TROPHEES : <%=data.trophies%>
+                                </p>
+                                <p> PLUS HAUT TROPHEES : <%=data.highestTrophies%>
+                                </p>
+                                <p> 3vs3 victoire : <%=data['3vs3Victories']%>
+                                </p>
+                                <p> Solo Showdown top1 : <%=data.soloVictories%>
+                                </p>
+                                <p> Duo Showdown top1 : <%=data.duoVictories%>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+
+
+    
+            <!------------------------- Affichage Battlelog --------------------->
+
+            <!------------------------- Statistiques des modes --------------------->
+            <div class="container collapsible">
+                <div class="collapse-button">
+                   <i class="fas fa-arrow-down arrow-icon"></i>
+                </div>
+
+                <h2>BattleLog :</h2>
+                <h3>Pourcentage de victoires :</h3>
+
+                    <div class ="content">
+                <% 
+                    var modesStats = {
+                        "brawlBall": { total: 0, wins: 0 },
+                        "duoShowdown": { total: 0, wins: 0 }
+                        // ... ajoutez d'autres modes si nécessaire
+                    }; 
+
+                    if (battlelog && battlelog.items) {
+                        battlelog.items.forEach(function(battleItem) {
+                            if (modesStats[battleItem.event.mode]) {
+                                modesStats[battleItem.event.mode].total += 1;
+                                if (battleItem.event.mode === 'brawlBall' && battleItem.battle.result === 'victory') {
+                                    modesStats[battleItem.event.mode].wins += 1;
+                                } else if (battleItem.event.mode === 'duoShowdown' && (battleItem.battle.rank === 1 || battleItem.battle.rank === 2)) {
+                                    modesStats[battleItem.event.mode].wins += 1;
+                                }
+                                // ... ajoutez des conditions pour d'autres modes si nécessaire
+                            }
+                        });
+                    }
+                %>
+
+                <% for (var mode in modesStats) { %>
+                    <p>
+                        <%= mode.charAt(0).toUpperCase() + mode.slice(1) %> :
+                            <%= modesStats[mode].total %> parties,
+                            <%= ((modesStats[mode].wins / modesStats[mode].total) * 100).toFixed(2) %> % de victoires.
+                    </p>
+                <% } %>
+
+            </div>
+        </div>
+
+            <!------------------------- Fin statistiques des modes --------------------->
+
+            <!------------------------- Statistiques des trophées pour le joueur --------------------->
+            <div class="container collapsible">
+
+                <div class="collapse-button">
+                    <i class="fas fa-arrow-down arrow-icon"></i>
+                </div>
+
+                <h2>Statistiques des trophées pour <%= data.name %> :</h2>
+
+                 <div class ="content">
+                
+                <% 
+                    var trophiesParBrawler = {};
+
+                    (battlelog.items || []).forEach(battleItem => {
+                        let trophyChange = battleItem.battle && battleItem.battle.trophyChange || 0;
+
+                        (battleItem.battle.teams || []).flat().forEach(player => {
+                            if (player.name === data.name) {
+                                trophiesParBrawler[player.brawler.name] = (trophiesParBrawler[player.brawler.name] || 0) + trophyChange;
+                            }
+                        });
+                    });
+                %>
+
+                <% for (var brawler in trophiesParBrawler) { %>
+                    <p>
+                        <%= brawler %> : <%= trophiesParBrawler[brawler] %> trophées gagnés/perdus.
+                    </p>
+                <% } %>
+
+                </div>
+            </div>
+            <!------------------------- Fin statistiques des trophées pour le joueur --------------------->
+
+            <!------------------------- Fin Affichage Battlelog --------------------->
+
+
+            <!------------------------------- Brawler affichage  ---------------------------------->
+
+
+            <div class="container">
+                <h2>Brawlers:</h2>
+
+                <form action="/" method="get">
+                    <label>
+                        <input type="radio" name="filter" value="trophies" checked>
+                        Trier par Trophées
+                    </label>
+                    <label>
+                        <input type="radio" name="filter" value="highestTrophies">
+                        Trier par Meilleurs Trophées
+                    </label>
+                    <button type="submit">Filtrer</button>
+                </form>
+
+
+
+                <div class="brawlers-container">
+                    <% data.brawlers.forEach(function(brawler) { %>
+                        <div class="brawler">
+                            <img class="brawler img" src="/src/<%= brawler.id %>.png" alt="<%= brawler.name %> Image">
+                            <div class="brawler-details">
+                                <h4>
+                                    <%= brawler.name %>
+                                </h4>
+                                <p>Trophées actuels: <%= brawler.trophies %>
+                                </p>
+                                <p>Trophées les plus élevés: <%= brawler.highestTrophies %>
+                                </p>
+                                <p>Power: <%= brawler.power %>
+                                </p>
+                            </div>
+                        </div>
+                        <% }); %>
+                </div>
+            </div>
+
+            <!------------------------------- Brawler affichage  ---------------------------------->
+
+
+            <% } else { %>
+                <div class="container">
+                    <h1>Erreur lors de la récupération des données. Veuillez réessayer plus tard.</h1>
+                </div>
+                <% } %>
+
+
+
+
+    <script>
+
+        $(document).ready(function () {
+            $(".collapsible .content").show(); // Affiche le contenu au chargement de la page
+
+            $(".collapsible .collapse-button").on("click", function () {
+                var container = $(this).parent();
+                var content = container.find(".content");
+                var arrowIcon = $(this).find(".arrow-icon");
+
+                if (content.is(":visible")) {
+                    content.slideUp();
+                    arrowIcon.css("transform", "rotate(90deg)"); // Rotation de la flèche vers le bas
+                } else {
+                    content.slideDown();
+                    arrowIcon.css("transform", "rotate(0deg)"); // Rotation de la flèche vers le haut
+                }
+            });
+        });
+
+    </script>
+
+
+
+    </body>
+
+    </html>
