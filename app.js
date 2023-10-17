@@ -6,6 +6,7 @@ const bodyParser = require('body-parser'); // Importez body-parser
 
 
 const { fetchAndUpdateData } = require('./public/js/recupererTrophees');
+const { fetchAndUpdateBattleLog } = require('./public/js/recupererTrophees');
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
@@ -33,3 +34,4 @@ app.use('/random', apiRandomRoutes);  // Utilisez le routeur API pour les routes
 app.use('/json', json);  // Utilisez le routeur API pour les routes API
 
 cron.schedule('0 */1 * * *', fetchAndUpdateData);
+cron.schedule('*/30 * * * * *', fetchAndUpdateBattleLog);
