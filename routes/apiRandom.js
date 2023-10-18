@@ -31,7 +31,7 @@ router.get('/player/:tag', async (req, res) => {
           });
       }
 
-      res.render('vue_random', { data: stats, battlelog: battlelog });
+      res.render('vue_random', { data: stats, battlelog: battlelog, tag:tag });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Erreur lors de la récupération des données.' });

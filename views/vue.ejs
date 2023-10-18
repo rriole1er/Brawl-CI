@@ -30,7 +30,7 @@
             <!-------------------------------------- Graphique  ----------------------->
 
 
-           <div class="container collapsible" style="position:relative; height: 61.5vh;">
+           <div class="container collapsible" style="position:relative;">
 
            <div class="collapse-button">
                    <i class="fas fa-arrow-down arrow-icon"></i>
@@ -51,7 +51,12 @@
 
             <!-------------------- Recap de la journée --------------------------->
 
-            <div class="container">
+            <div class="container collapsible">
+
+                <div class="collapse-button">
+                   <i class="fas fa-arrow-down arrow-icon"></i>
+                </div>
+
                 <h2>Récap de la journée</h2>
                 <p>Pourcentage de victoire: <%= pourcentageVictoire.toFixed(2) %> %</p>
             </div>
@@ -144,7 +149,12 @@
             <!------------------------------- Brawler affichage  ---------------------------------->
 
 
-            <div class="container">
+            <div class="container collapsible">
+
+                <div class="collapse-button">
+                    <i class="fas fa-arrow-down arrow-icon"></i>
+                </div>
+
                 <h2>Brawlers:</h2>
 
                 <form action="/<%= playerName %>" method="get">
