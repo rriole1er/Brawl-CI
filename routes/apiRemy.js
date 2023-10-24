@@ -37,9 +37,6 @@ router.get('/', async (req, res) => {
         const [days2, values2 ] = loadDataPlayer("Luc4gbox");
         const [days3, values3] = loadDataPlayer("Tristan");
 
-        console.log(values3,days3);
-
-
         // Obtenez la date actuelle
         const today = new Date();
         const dateString = today.toISOString().split('T')[0];

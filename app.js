@@ -34,4 +34,4 @@ app.use('/random', apiRandomRoutes);  // Utilisez le routeur API pour les routes
 app.use('/json', json);  // Utilisez le routeur API pour les routes API
 
 cron.schedule('0 */1 * * *', fetchAndUpdateData);
-cron.schedule('*/30 * * * * *', fetchAndUpdateBattleLog);
+//cron.schedule('*/30 * * * * *', fetchAndUpdateBattleLog);

@@ -1,0 +1,277 @@
+{
+  "20231023T205443.000Z": {
+    "battleTime": "20231023T205443.000Z",
+    "mode": "heist",
+    "rank": "defeat",
+    "trophyChange": -7,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "BROCK",
+      "trophies": 601
+    }
+  },
+  "20231023T205149.000Z": {
+    "battleTime": "20231023T205149.000Z",
+    "mode": "gemGrab",
+    "rank": "defeat",
+    "trophyChange": -7,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "POCO",
+      "trophies": 620
+    }
+  },
+  "20231023T204950.000Z": {
+    "battleTime": "20231023T204950.000Z",
+    "mode": "gemGrab",
+    "rank": "defeat",
+    "trophyChange": -7,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "POCO",
+      "trophies": 627
+    }
+  },
+  "20231023T204729.000Z": {
+    "battleTime": "20231023T204729.000Z",
+    "mode": "gemGrab",
+    "rank": "defeat",
+    "trophyChange": -7,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "POCO",
+      "trophies": 634
+    }
+  },
+  "20231023T204532.000Z": {
+    "battleTime": "20231023T204532.000Z",
+    "mode": "gemGrab",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "POCO",
+      "trophies": 626
+    }
+  },
+  "20231023T204302.000Z": {
+    "battleTime": "20231023T204302.000Z",
+    "mode": "gemGrab",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "POCO",
+      "trophies": 618
+    }
+  },
+  "20231023T204046.000Z": {
+    "battleTime": "20231023T204046.000Z",
+    "mode": "gemGrab",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "POCO",
+      "trophies": 610
+    }
+  },
+  "20231023T203836.000Z": {
+    "battleTime": "20231023T203836.000Z",
+    "mode": "gemGrab",
+    "rank": "defeat",
+    "trophyChange": -7,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "POCO",
+      "trophies": 617
+    }
+  },
+  "20231023T203645.000Z": {
+    "battleTime": "20231023T203645.000Z",
+    "mode": "gemGrab",
+    "rank": "defeat",
+    "trophyChange": -7,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "POCO",
+      "trophies": 624
+    }
+  },
+  "20231023T203412.000Z": {
+    "battleTime": "20231023T203412.000Z",
+    "mode": "gemGrab",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "POCO",
+      "trophies": 616
+    }
+  },
+  "20231023T203222.000Z": {
+    "battleTime": "20231023T203222.000Z",
+    "mode": "gemGrab",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "POCO",
+      "trophies": 608
+    }
+  },
+  "20231023T202930.000Z": {
+    "battleTime": "20231023T202930.000Z",
+    "mode": "gemGrab",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "POCO",
+      "trophies": 600
+    }
+  },
+  "20231023T202715.000Z": {
+    "battleTime": "20231023T202715.000Z",
+    "mode": "gemGrab",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "GUS",
+      "trophies": 596
+    }
+  },
+  "20231023T202446.000Z": {
+    "battleTime": "20231023T202446.000Z",
+    "mode": "gemGrab",
+    "rank": "defeat",
+    "trophyChange": -7,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "GUS",
+      "trophies": 603
+    }
+  },
+  "20231023T202233.000Z": {
+    "battleTime": "20231023T202233.000Z",
+    "mode": "gemGrab",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "GUS",
+      "trophies": 595
+    }
+  },
+  "20231023T201923.000Z": {
+    "battleTime": "20231023T201923.000Z",
+    "mode": "gemGrab",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "GUS",
+      "trophies": 587
+    }
+  },
+  "20231023T201553.000Z": {
+    "battleTime": "20231023T201553.000Z",
+    "mode": "brawlBall",
+    "rank": "defeat",
+    "trophyChange": -7,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "GRAY",
+      "trophies": 608
+    }
+  },
+  "20231023T201258.000Z": {
+    "battleTime": "20231023T201258.000Z",
+    "mode": "brawlBall",
+    "rank": "defeat",
+    "trophyChange": -7,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "SQUEAK",
+      "trophies": 623
+    }
+  },
+  "20231023T201029.000Z": {
+    "battleTime": "20231023T201029.000Z",
+    "mode": "brawlBall",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "PENNY",
+      "trophies": 698
+    }
+  },
+  "20231023T200810.000Z": {
+    "battleTime": "20231023T200810.000Z",
+    "mode": "brawlBall",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "PENNY",
+      "trophies": 690
+    }
+  },
+  "20231023T200648.000Z": {
+    "battleTime": "20231023T200648.000Z",
+    "mode": "brawlBall",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "PENNY",
+      "trophies": 682
+    }
+  },
+  "20231023T200522.000Z": {
+    "battleTime": "20231023T200522.000Z",
+    "mode": "brawlBall",
+    "rank": "defeat",
+    "trophyChange": -7,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "PENNY",
+      "trophies": 689
+    }
+  },
+  "20231023T200342.000Z": {
+    "battleTime": "20231023T200342.000Z",
+    "mode": "brawlBall",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "PENNY",
+      "trophies": 681
+    }
+  },
+  "20231023T200044.000Z": {
+    "battleTime": "20231023T200044.000Z",
+    "mode": "brawlBall",
+    "rank": "defeat",
+    "trophyChange": -7,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "PENNY",
+      "trophies": 688
+    }
+  },
+  "20231023T195923.000Z": {
+    "battleTime": "20231023T195923.000Z",
+    "mode": "brawlBall",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "GirafeKool",
+    "brawler": {
+      "name": "PENNY",
+      "trophies": 680
+    }
+  }
+}

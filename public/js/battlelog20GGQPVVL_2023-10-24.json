@@ -1,0 +1,276 @@
+{
+  "20231024T093230.000Z": {
+    "battleTime": "20231024T093230.000Z",
+    "mode": "brawlBall",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CHESTER",
+      "trophies": 273
+    }
+  },
+  "20231024T092925.000Z": {
+    "battleTime": "20231024T092925.000Z",
+    "mode": "brawlBall",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CHESTER",
+      "trophies": 265
+    }
+  },
+  "20231024T092818.000Z": {
+    "battleTime": "20231024T092818.000Z",
+    "mode": "brawlBall",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CHESTER",
+      "trophies": 257
+    }
+  },
+  "20231024T092515.000Z": {
+    "battleTime": "20231024T092515.000Z",
+    "mode": "brawlBall",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CHESTER",
+      "trophies": 249
+    }
+  },
+  "20231024T092205.000Z": {
+    "battleTime": "20231024T092205.000Z",
+    "mode": "brawlBall",
+    "rank": "defeat",
+    "trophyChange": -3,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CHESTER",
+      "trophies": 252
+    }
+  },
+  "20231024T091925.000Z": {
+    "battleTime": "20231024T091925.000Z",
+    "mode": "soloShowdown",
+    "rank": 3,
+    "trophyChange": 6,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CHESTER",
+      "trophies": 246
+    }
+  },
+  "20231024T091720.000Z": {
+    "battleTime": "20231024T091720.000Z",
+    "mode": "soloShowdown",
+    "rank": 3,
+    "trophyChange": 6,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CHESTER",
+      "trophies": 240
+    }
+  },
+  "20231024T091501.000Z": {
+    "battleTime": "20231024T091501.000Z",
+    "mode": "soloShowdown",
+    "rank": 1,
+    "trophyChange": 10,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CHESTER",
+      "trophies": 230
+    }
+  },
+  "20231024T091017.000Z": {
+    "battleTime": "20231024T091017.000Z",
+    "mode": "duoShowdown",
+    "rank": 5,
+    "trophyChange": -8,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "GRAY",
+      "trophies": 609
+    }
+  },
+  "20231024T071919.000Z": {
+    "battleTime": "20231024T071919.000Z",
+    "mode": "soloShowdown",
+    "rank": 1,
+    "trophyChange": 10,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CHESTER",
+      "trophies": 220
+    }
+  },
+  "20231024T071613.000Z": {
+    "battleTime": "20231024T071613.000Z",
+    "mode": "duoShowdown",
+    "rank": 1,
+    "trophyChange": 9,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "OTIS",
+      "trophies": 460
+    }
+  },
+  "20231023T134412.000Z": {
+    "battleTime": "20231023T134412.000Z",
+    "mode": "duoShowdown",
+    "rank": 2,
+    "trophyChange": 7,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "DOUG",
+      "trophies": 435
+    }
+  },
+  "20231023T134148.000Z": {
+    "battleTime": "20231023T134148.000Z",
+    "mode": "duoShowdown",
+    "rank": 1,
+    "trophyChange": 9,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "DOUG",
+      "trophies": 426
+    }
+  },
+  "20231023T134011.000Z": {
+    "battleTime": "20231023T134011.000Z",
+    "mode": "duoShowdown",
+    "rank": 1,
+    "trophyChange": 9,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "DOUG",
+      "trophies": 417
+    }
+  },
+  "20231023T133735.000Z": {
+    "battleTime": "20231023T133735.000Z",
+    "mode": "duoShowdown",
+    "rank": 1,
+    "trophyChange": 9,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "DOUG",
+      "trophies": 408
+    }
+  },
+  "20231023T133539.000Z": {
+    "battleTime": "20231023T133539.000Z",
+    "mode": "duoShowdown",
+    "rank": 1,
+    "trophyChange": 9,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "DOUG",
+      "trophies": 399
+    }
+  },
+  "20231023T113126.000Z": {
+    "battleTime": "20231023T113126.000Z",
+    "mode": "soloShowdown",
+    "rank": 1,
+    "trophyChange": 10,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CHESTER",
+      "trophies": 210
+    }
+  },
+  "20231023T093921.000Z": {
+    "battleTime": "20231023T093921.000Z",
+    "mode": "brawlBall",
+    "rank": "defeat",
+    "trophyChange": -6,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CARL",
+      "trophies": 506
+    }
+  },
+  "20231023T093454.000Z": {
+    "battleTime": "20231023T093454.000Z",
+    "mode": "brawlBall",
+    "rank": "defeat",
+    "trophyChange": -6,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CARL",
+      "trophies": 512
+    }
+  },
+  "20231023T093254.000Z": {
+    "battleTime": "20231023T093254.000Z",
+    "mode": "brawlBall",
+    "rank": "draw",
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CARL",
+      "trophies": 512
+    }
+  },
+  "20231022T162307.000Z": {
+    "battleTime": "20231022T162307.000Z",
+    "mode": "soloShowdown",
+    "rank": 3,
+    "trophyChange": 6,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CHESTER",
+      "trophies": 204
+    }
+  },
+  "20231022T162050.000Z": {
+    "battleTime": "20231022T162050.000Z",
+    "mode": "soloShowdown",
+    "rank": 1,
+    "trophyChange": 10,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CHESTER",
+      "trophies": 194
+    }
+  },
+  "20231022T161856.000Z": {
+    "battleTime": "20231022T161856.000Z",
+    "mode": "soloShowdown",
+    "rank": 2,
+    "trophyChange": 8,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "CHESTER",
+      "trophies": 186
+    }
+  },
+  "20231022T121909.000Z": {
+    "battleTime": "20231022T121909.000Z",
+    "mode": "knockout",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "GROM",
+      "trophies": 612
+    }
+  },
+  "20231022T121623.000Z": {
+    "battleTime": "20231022T121623.000Z",
+    "mode": "knockout",
+    "rank": "victory",
+    "trophyChange": 8,
+    "playerName": "Luc4gbox",
+    "brawler": {
+      "name": "GROM",
+      "trophies": 604
+    }
+  }
+}

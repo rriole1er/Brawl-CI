@@ -1,17 +1,19 @@
 const {  fetchDataFromBrawlStarsLocal } = require('./apicall');
 const { fetchDataFromBattleLog } = require('./apicall');
 
-const fetch = require('node-fetch');
 const fs = require('fs');
-const schedule = require('node-schedule');
-const cron = require('cron');
 
+// ------------------- Récupération Trophées --------------------------
+
+
+// Recupère les trophées d'un jour à partir du tag
 async function obtenirTrophees(tagJoueur) {
     const stats = await fetchDataFromBrawlStarsLocal(tagJoueur);
 
     return stats.trophies;
 }
 
+// Fonction qui lit un json
 function lireFichierJSON(nomFichier) {
     if (fs.existsSync(nomFichier)) {
         const donneesBrutes = fs.readFileSync(nomFichier, 'utf8');
@@ -21,6 +23,7 @@ function lireFichierJSON(nomFichier) {
     }
 }
 
+// Fonction qui ajoute des données sous un format specifique dans le fichier trophée.json
 function ajouterDonneesAuJSON(donneesJSON, trophees) {
     const maintenant = new Date();
     const aujourdHui = `${maintenant.toISOString().split('T')[0]} ${maintenant.getHours()}:${maintenant.getMinutes()}`;
@@ -28,18 +31,28 @@ function ajouterDonneesAuJSON(donneesJSON, trophees) {
     return donneesJSON;
 }
 
+// Fonction qui ecrit une chaine dans un json
 function ecrireJSONDansFichier(nomFichier, donneesJSON) {
     const chaineDonnees = JSON.stringify(donneesJSON, null, 2);
     fs.writeFileSync(nomFichier, chaineDonnees);
 }
 
+// Fonction qui recupère les trophées, lit les données déja présents et ajoute
 async function mettreAJourFichierTrophees(tagJoueur, nomFichier) {
     const trophées = await obtenirTrophees(tagJoueur);
+
+    console.log(trophées);
+
     const donneesJSON = lireFichierJSON(nomFichier);
+
     const donneesMisesAJour = ajouterDonneesAuJSON(donneesJSON, trophées);
+
+    console.log("données mis a jour",donneesMisesAJour);
+
     ecrireJSONDansFichier(nomFichier, donneesMisesAJour);
 }
 
+// Fonction qui mets a jour pour les 3 joueurs
 function fetchAndUpdateData() {
     Promise.all([
         mettreAJourFichierTrophees("20GGQPVVL", 'public/js/tropheesLuc4gbox.json'),
@@ -53,6 +66,10 @@ function fetchAndUpdateData() {
 }
 
 // ------------------- Récupération Trophées --------------------------
+
+
+
+
 
 function extraireInfosBattlelog(battleItem, tagJoueur) {
 
@@ -85,18 +102,24 @@ async function obtenirBattleLog(tagJoueur) {
     return battlelog.items.map(battleItem => extraireInfosBattlelog(battleItem, tagJoueur));
 }
 
-function ajouterDonneesAuJSON(donneesExistantes, nouvellesDonnees) {
+function ajouterDonneesAuJSON2(donneesExistantes, nouvellesDonnees) {
     if (typeof donneesExistantes !== 'object' || donneesExistantes === null) {
         donneesExistantes = {};
     }
 
-    nouvellesDonnees.forEach(bataille => {
-        donneesExistantes[bataille.battleTime] = bataille;
-    });
+    if (Array.isArray(nouvellesDonnees)) {
+        nouvellesDonnees.forEach(bataille => {
+            donneesExistantes[bataille.battleTime] = bataille;
+        });
+    } else {
+        console.error("nouvellesDonnees n'est pas un tableau.");
+    }
 
     return donneesExistantes;
 }
 
+
+// marche pas, ne supprime pas l'ancien battelog
 async function mettreAJourFichierBattleLog(tagJoueur) {
     const maintenant = new Date();
 
@@ -114,7 +137,7 @@ async function mettreAJourFichierBattleLog(tagJoueur) {
 
     let donneesExistantes = lireFichierJSON(nomFichier);
 
-    const donneesMisesAJour = ajouterDonneesAuJSON(donneesExistantes, nouvellesDonnees);
+    const donneesMisesAJour = ajouterDonneesAuJSON2(donneesExistantes, nouvellesDonnees);
 
     ecrireJSONDansFichier(nomFichier, donneesMisesAJour);
 }
