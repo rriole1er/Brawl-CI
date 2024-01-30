@@ -14,6 +14,7 @@ variables:
   DOCKER_IMAGE_NAME: $CI_REGISTRY/$CI_PROJECT/$DOCKER_IMAGE_TAG   #image docker avec lien vers registry
   KUBE_CONTEXT: rriole/brawl-stars-stats:k3s
   K8S_NAMESPACE: ns-brawl-life
+  KUBECTL: "kubectl --insecure-skip-tls-verify"
 
 
 
@@ -51,11 +52,11 @@ deployments:
     name: roffe/kubectl:v1.13.0 #bitnami/kubectl:latest
     entrypoint: ['']
   script:
-    - kubectl config get-contexts
-    - kubectl config use-context $KUBE_CONTEXT
-    - kubectl create ns $K8S_NAMESPACE
-    - kubectl delete --ignore-not-found=true secret gitlab-auth --namespace=$K8S_NAMESPACE
-    - kubectl create secret docker-registry gitlab-auth --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_ROBOT_NAME --docker-password=$CI_ROBOT_TOKEN --namespace=$K8S_NAMESPACE
-    - cat kubernetes/dep-brawl-life.yaml | envsubst | kubectl apply -f -
-    - cat kubernetes/svc-clusterip-dep-brawl-life.yaml | envsubst | kubectl apply -f -
-    - cat kubernetes/ing-app-brawl-life.yaml | envsubst | kubectl apply -f -
+    - $KUBECTL config get-contexts
+    - $KUBECTL config use-context $KUBE_CONTEXT
+    - $KUBECTL create ns $K8S_NAMESPACE
+    - $KUBECTL delete --ignore-not-found=true secret gitlab-auth --namespace=$K8S_NAMESPACE
+    - $KUBECTL create secret docker-registry gitlab-auth --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_ROBOT_NAME --docker-password=$CI_ROBOT_TOKEN --namespace=$K8S_NAMESPACE
+    - cat kubernetes/dep-brawl-life.yaml | envsubst | $KUBECTL apply -f -
+    - cat kubernetes/svc-clusterip-dep-brawl-life.yaml | envsubst | $KUBECTL apply -f -
+    - cat kubernetes/ing-app-brawl-life.yaml | envsubst | $KUBECTL apply -f -
