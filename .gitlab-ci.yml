@@ -12,7 +12,7 @@ stages:          # List of stages for jobs, and their order of executionj
 variables:
   DOCKER_IMAGE_TAG: bralw-stars-stats:$CI_COMMIT_SHORT_SHA      #nom dans le registry
   DOCKER_IMAGE_NAME: $CI_REGISTRY/$CI_PROJECT/$DOCKER_IMAGE_TAG   #image docker avec lien vers registry
-  #KUBE_CONTEXT: labs-iut-info/labsagent:labsagentiut
+  KUBE_CONTEXT: rriole/brawl-stars-stats:k3s
   #KUBECTL: "kubectl --insecure-skip-tls-verify"
   #K8S_NAMESPACE: $CI_NAMESPACE_PROJECT
 
@@ -46,9 +46,12 @@ lint-test-job:   # This job also runs in the test stage.v
 
 deployments:
   stage: deploy
+  tags:
+    - docker
   image: 
     name: bitnami/kubectl:latest
     entrypoint: ['']
   script:
     - kubectl config get-context
+    - kubectl config use-context $KUBE_CONTEXT
     - kubectl get ns
