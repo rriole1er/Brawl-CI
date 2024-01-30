@@ -3,7 +3,7 @@
 https://miro.com/welcomeonboard/TTJWZDBGb0owRXFqOGdteXUwQkxQdGR2YktkSjZVZUdhN3AyeUt5dDVwdlZoTWtWWDNnQ1BqTU1qbHJySG9GVHwzNDU4NzY0NTE2NTg0NjY3ODI0fDI=?share_link_id=547989370245
 
 
-# CI gitlab
+# CI gitlab build
 
 Créeer un dockerFile :
 
@@ -37,6 +37,8 @@ lancer le run :
 docker run --rm -p 8000:8000 brawl-life
 ````
 
+# CI gitlab test et linter
+
 on test les test (lol)
 ```
 docker run --rm -p 8000:8000 brawl-life npm test
@@ -69,11 +71,9 @@ Key -- > CI_PROJECT
 Value -- > nom du projet sur harbor (brawl-life)
 
 
-
 .gitlab-ci.yml
 
 ````
-
 default:
   image: docker:24.0.5
   services:
@@ -114,5 +114,17 @@ lint-test-job:   # This job also runs in the test stage.v
     - shell
   script:
     - docker run $DOCKER_IMAGE_NAME npm run lint
+```
+
+
+# CI gitlab deployement
+
+Maintenant qu'on a fait la CI, on fait la CD.
+Pour ce faire, on utilie des kubes, les kubes sont des très qui heberge les sites web. D'habitude on vole le cluster de l'iut, mais il reste de nous clear le cerveau.
+Donc on fait notre propre cluster sur des raspberry qui tournent à 3, histoire que si le master qui tiens notre projet cannent, les 2 autres le ressuscite.
+
+A ajouter dans le .gitlab-ci.yml :
+
+````
 
 ```
