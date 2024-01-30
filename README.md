@@ -18,6 +18,8 @@ COPY . .
 
 EXPOSE 8000
 
+RUN npm install
+
 cmd ['node','app.js']
 ````
 
@@ -68,5 +70,8 @@ Value -- > nom du projet sur harbor (brawl-life)
 
 
 
+.gitlab-ci.yml
 
+````
 
+```

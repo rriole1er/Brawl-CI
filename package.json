@@ -8,7 +8,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000"
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "lint" : "eslint routes/*.js tests/*.js public/js/*.js app.js"
   },
   "jest": {
     "testEnvironment": "node",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "eslint": "^8.56.0",
     "got": "^11.3.0",
     "jest": "^29.7.0",
     "supertest": "^6.3.4",

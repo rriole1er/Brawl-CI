@@ -3,15 +3,15 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const cron = require('node-cron');
 const bodyParser = require('body-parser'); // Importez body-parser
-
+//const ejs = require('ejs');
 
 const { fetchAndUpdateData } = require('./public/js/recupererTrophees');
-const { fetchAndUpdateBattleLog } = require('./public/js/recupererTrophees');
+//const { fetchAndUpdateBattleLog } = require('./public/js/recupererTrophees');
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
 });
-const ejs = require('ejs');
+
 const mainRoutes = require('./routes/main'); // Importez le routeur principal
 const apiRemyRoutes = require('./routes/apiRemy');   // Importez le routeur API
 const apiLucasRoutes = require('./routes/apiLucas');   // Importez le routeur API
@@ -19,7 +19,6 @@ const apiTristanRoutes = require ('./routes/apiTristan');
 const apiRandomRoutes = require ('./routes/apiRandom'); 
 
 const json = require('./routes/json');   // Importez le routeur API
-
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));

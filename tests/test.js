@@ -1,7 +1,7 @@
 // tests/apicall.test.js
+const jest = require('jest')
 jest.mock('node-fetch');
 const fetch = require('node-fetch');
-const { fetchDataFromBrawlStarsLocal } = require('../public/js/apicall');
 
 test('should return Brawl Stars player data', async () => {
   const playerTag = '#VUGVJYUY';
@@ -11,13 +11,9 @@ test('should return Brawl Stars player data', async () => {
     json: async () => mockResponse,
   });
 
-  try {
+  expect(mockResponse).toBeDefined();
+  expect(mockResponse).toHaveProperty('name');
+  expect(mockResponse).toHaveProperty('tag',playerTag)
+  // Add more assertions based on the structure of your expected response
 
-    expect(mockResponse).toBeDefined();
-    expect(mockResponse).toHaveProperty('name');
-    expect(mockResponse).toHaveProperty('tag',playerTag)
-    // Add more assertions based on the structure of your expected response
-  } catch (error) {
-    throw error;
-  }
 });

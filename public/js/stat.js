@@ -3,7 +3,7 @@ const fs = require('fs');
 class DataProcessor {
     constructor(jsonFilePath) {
         this.jsonFilePath = jsonFilePath;
-        this.data = null;
+        this.data = null; 
     }
 
     readData() {
@@ -24,6 +24,7 @@ class DataProcessor {
         const lastCapturesByDay = {};
     
         for (const timestamp in this.data) {
+            // eslint-disable-next-line
             if (this.data.hasOwnProperty(timestamp)) {
                 const date = timestamp.split(' ')[0];
                 const value = this.data[timestamp];

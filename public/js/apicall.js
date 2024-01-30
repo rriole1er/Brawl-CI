@@ -1,9 +1,8 @@
 
-const axios = require('axios');
 const url = require('url');
 
 const fixieUrl = url.parse(process.env.FIXIE_URL || 'http://fixie:kmzzVSUwFDuEsju@velodrome.usefixie.com');
-const fixieAuth = fixieUrl.auth.split(':');
+fixieUrl.auth.split(':');
 const apiKey = 'REDACTED_API_KEY';
 
 async function fetchDataFromBrawlStarsLocal(playerTag) {

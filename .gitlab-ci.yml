@@ -7,7 +7,7 @@ default:
 stages:          # List of stages for jobs, and their order of executionj
   - build
   - test
-  #- lint
+  - lint
 
 variables:
   DOCKER_IMAGE_TAG: bralw-stars-stats:$CI_COMMIT_SHORT_SHA      #nom dans le registry
@@ -29,20 +29,13 @@ unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   tags:
     - shell
-  before_script:
-  - docker login -u $CI_REGISTRY_ROBOT_NAME -p $CI_ROBOT_TOKEN $CI_REGISTRY
-  - docker info
   script:
     - docker run $DOCKER_IMAGE_NAME npm run test
   
 
-#lint-test-job:   # This job also runs in the test stage.v
-#  stage: test    # It can run at the same time as unit-test-job (in parallel).
-#  tags:
-#    - shell
-#  before_script:
-#    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
-#    - docker info
-#  script:
-#    - docker run $DOCKER_IMAGE_NAME npm run lint
-
+lint-test-job:   # This job also runs in the test stage.v
+  stage: lint    # It can run at the same time as unit-test-job (in parallel).
+  tags:
+    - shell
+  script:
+    - docker run $DOCKER_IMAGE_NAME npm run lint
