@@ -52,6 +52,6 @@ deployments:
     name: bitnami/kubectl:latest
     entrypoint: ['']
   script:
-    - kubectl config get-context
+    - kubectl config get-contexts
     - kubectl config use-context $KUBE_CONTEXT
     - kubectl get ns
