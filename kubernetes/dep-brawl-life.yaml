@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-brawl-life
+  namespace: $K8S_NAMESPACE
+  labels:
+    app: brawl-life
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: brawl-life
+  template:
+    metadata:
+      labels:
+        app: brawl-life
+    spec:
+      containers:
+      - name: brawl-life
+        image: $DOCKER_IMAGE_NAME
+        ports:
+          - containerPort: 8000

@@ -40,7 +40,7 @@ docker run --rm -p 8000:8000 brawl-life
 # CI gitlab test et linter
 
 on test les test (lol)
-```
+````
 docker run --rm -p 8000:8000 brawl-life npm test
 ````
 
@@ -114,17 +114,52 @@ lint-test-job:   # This job also runs in the test stage.v
     - shell
   script:
     - docker run $DOCKER_IMAGE_NAME npm run lint
-```
+````
 
 
-# CI gitlab deployement
+# CI gitlab deployement communication 
 
 Maintenant qu'on a fait la CI, on fait la CD.
-Pour ce faire, on utilie des kubes, les kubes sont des très qui heberge les sites web. D'habitude on vole le cluster de l'iut, mais il reste de nous clear le cerveau.
-Donc on fait notre propre cluster sur des raspberry qui tournent à 3, histoire que si le master qui tiens notre projet cannent, les 2 autres le ressuscite.
+Pour ce faire, on utilie des pods, les pods sont des trucs qui heberge les sites web. D'habitude on vole le cluster de l'iut, mais il risque de nous clear le cerveau.
+Donc on fait notre propre cluster sur des raspberry qui tournent à 3, histoire que si le master qui tiens notre projet cannent, les 2 autres le ressuscite (le relais).
 
 A ajouter dans le .gitlab-ci.yml :
 
 ````
+variables:
+  DOCKER_IMAGE_TAG: bralw-stars-stats:$CI_COMMIT_SHORT_SHA      #nom dans le registry
+  DOCKER_IMAGE_NAME: $CI_REGISTRY/$CI_PROJECT/$DOCKER_IMAGE_TAG   #image docker avec lien vers registry
+  KUBE_CONTEXT: rriole/brawl-stars-stats:k3s
+  #KUBECTL: "kubectl --insecure-skip-tls-verify"
+  #K8S_NAMESPACE: $CI_NAMESPACE_PROJECT
 
-```
+
+deployments:
+  stage: deploy
+  tags:
+    - docker
+  image: 
+    name: bitnami/kubectl:latest
+    entrypoint: ['']
+  script:
+    - kubectl config get-contexts
+    - kubectl config use-context $KUBE_CONTEXT
+    - kubectl get ns
+````
+
+On a créer un agent kubernetes (un poto qui parle avec gitlab / notre cluster), pour se donner des infos.
+
+On ajouté une variable (l'agent gitlab) et pour l'instant on affiche les namespaces de notre cluster kubernetes dans le terminal (get ns)
+
+
+# CI gitlab deployement communication
+
+On doit créer un deployement (un container tah docker nginx pour faire tourner le site).
+
+Puis on crée un service pour pouvoir exposer le deployement.
+
+Enfin, un ingress pour faire sortir le service dehors.
+
+VOila Bisous
+
+
