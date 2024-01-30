@@ -48,7 +48,25 @@ On créer un robot qui va faire des trucs sur notre repo
 
 On choppe son token et on le fout dans gitlab
 
-
 "AJOUTER UNE VARIABLE DANS SETTINGS/CI-CD/VARIABLE"
+
+Key -- > CI_ROBOT_TOKEN
+
+Value -- > token du robot
+
+Key -- > CI_REGISTRY_ROBOT_NAME
+
+Value -- > nom du robot sur harbor 
+
+Key -- > CI_REGISTRY
+
+Value -- > url de harbor (forge-registry.iut-larochelle.fr)
+
+Key -- > CI_PROJECT
+
+Value -- > nom du projet sur harbor (brawl-life)
+
+
+
 
 
