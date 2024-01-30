@@ -48,7 +48,7 @@ deployments:
   tags:
     - docker
   image: 
-    name: bitnami/kubectl:latest
+    name: roffe/kubectl:v1.13.0 #bitnami/kubectl:latest
     entrypoint: ['']
   script:
     - kubectl config get-contexts
