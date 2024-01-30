@@ -1,5 +1,5 @@
 apiVersion: networking.k8s.io/v1
-kind: Ingress 
+kind: Ingress
 metadata:
 	name: ing-app-brawl-life
 	namespace: $K8S_NAMESPACE
@@ -8,11 +8,11 @@ spec:
 	rules:
 	- host: 172.20.10.11.sslip.io
 		http:
-		paths:
-		- path: /
-			pathType: Prefix 
-			backend:
-				service:
-					name: svc-clusterip-dep-brawl-life
-					port:
-						number: 80
+			paths:
+				- path: /
+					pathType: Prefix
+					backend:
+						service:
+							name: svc-clusterip-dep-brawl-life
+							port:
+								number: 80
