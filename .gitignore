@@ -5,7 +5,3 @@ npm-debug.log
 # Local development
 *.dev
 .DS_Store
-
-# Docker
-Dockerfile
-docker-compose.yml
