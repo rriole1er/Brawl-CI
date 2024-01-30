@@ -54,7 +54,6 @@ deployments:
   script:
     - $KUBECTL config get-contexts
     - $KUBECTL config use-context $KUBE_CONTEXT
-    - $KUBECTL create ns $K8S_NAMESPACE
     - $KUBECTL delete --ignore-not-found=true secret gitlab-auth --namespace=$K8S_NAMESPACE
     - $KUBECTL create secret docker-registry gitlab-auth --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_ROBOT_NAME --docker-password=$CI_ROBOT_TOKEN --namespace=$K8S_NAMESPACE
     - cat kubernetes/dep-brawl-life.yaml | envsubst | $KUBECTL apply -f -
