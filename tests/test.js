@@ -1,5 +1,5 @@
 // tests/apicall.test.js
-const jest = require('jest')
+
 jest.mock('node-fetch');
 const fetch = require('node-fetch');
 
