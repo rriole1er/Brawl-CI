@@ -53,8 +53,7 @@ deployments:
   tags:
     - kubernetes
   image: 
-    name: roffe/kubectl:v1.13.0 #bitnami/kubectl:latest
-    entrypoint: ['']
+    name: chapphub/kubect #bitnami/kubectl:latest
   script:
     - $KUBECTL config get-contexts
     - $KUBECTL config use-context $KUBE_CONTEXT
