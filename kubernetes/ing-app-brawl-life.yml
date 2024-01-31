@@ -6,13 +6,13 @@ metadata:
 spec:
 	ingressClassName: traefik
 	rules:
-	- host: 172.20.10.11.sslip.io
-		http:
-			paths:
-				- path: /
-					pathType: Prefix
-					backend:
-						service:
-							name: svc-clusterip-dep-brawl-life
-							port:
-								number: 80
+		- host: 172.20.10.11.sslip.io
+			http:
+				paths:
+					- path: /
+						pathType: Prefix
+						backend:
+							service:
+								name: svc-clusterip-dep-brawl-life
+								port:
+									number: 80
