@@ -17,7 +17,6 @@ variables:
   KUBECTL: "kubectl --insecure-skip-tls-verify"
 
 
-
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
   tags:
