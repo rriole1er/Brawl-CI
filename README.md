@@ -163,3 +163,72 @@ Enfin, un ingress pour faire sortir le service dehors.
 VOila Bisous
 
 
+dep-brawl-life
+````
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-brawl-life
+  namespace: $K8S_NAMESPACE
+  labels:
+    app: brawl-life
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: brawl-life
+  template:
+    metadata:
+      labels:
+        app: brawl-life
+    spec:
+      containers:
+      - name: brawl-life
+        image: $DOCKER_IMAGE_NAME
+        ports:
+          - containerPort: 8000
+      imagePullSecrets:
+      - name: gitlab-auth
+````
+
+ing-app-brawl-life
+````
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: ing-app-brawl-life
+    namespace: $K8S_NAMESPACE
+spec:
+    ingressClassName: traefik
+    rules:
+        - host: 172.20.10.11.sslip.io
+          http:
+            paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                    service:
+                        name: svc-clusterip-dep-brawl-life
+                        port:
+                            number: 80
+````
+
+svc-clusterip-dep-brawl-life
+````
+apiVersion: v1 
+kind: Service 
+metadata:
+  name: svc-clusterip-dep-brawl-life 
+  namespace: $K8S_NAMESPACE
+spec:
+  type: ClusterIP 
+  selector:
+    app: brawl-life 
+  ports:
+    - port: 80
+      targetPort: 8000
+````
+
+Une fois le deployement effectué côté CI, on a connecté les pods avec un réseau wifi spécifique (iPhone de Florent).
+Le site sera donc disponible seulement sur ce reseau. Il Faudrait ouvrir les ports du réseau pour pouvoir avoir accès 
+au site via internet.

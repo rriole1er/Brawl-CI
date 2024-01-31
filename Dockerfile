@@ -9,5 +9,6 @@ EXPOSE 8000
 
 RUN npm install
 
-cmd ["node","app.js"]
+ENTRYPOINT ["/bin/sh"]
 
+CMD ["npm","start"]
