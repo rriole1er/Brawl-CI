@@ -232,3 +232,12 @@ spec:
 Une fois le deployement effectué côté CI, on a connecté les pods avec un réseau wifi spécifique (iPhone de Florent).
 Le site sera donc disponible seulement sur ce reseau. Il Faudrait ouvrir les ports du réseau pour pouvoir avoir accès 
 au site via internet.
+
+
+On a rencontré des problèmes de communication entre les pods, on a du créer un agent qui permet de parler entre eux. 
+
+Ensuite, les rapsberry sont en arm64 et les runners de gitlab (de l'iut) sont en amd64 donc on ne pouvait pas utiliser l'image buildé par les runners.
+
+On a donc fait notre propre runner sur le cluster de raspberry. Maitenant on build l'image dans une architecture qui correspond à notre endroit ou on l'utilise. (rapsberry)
+
+
