@@ -1,18 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-	name: ing-app-brawl-life
-	namespace: $K8S_NAMESPACE
+    name: ing-app-brawl-life
+    namespace: $K8S_NAMESPACE
 spec:
-	ingressClassName: traefik
-	rules:
-		- host: 172.20.10.11.sslip.io
-			http:
-				paths:
-					- path: /
-						pathType: Prefix
-						backend:
-							service:
-								name: svc-clusterip-dep-brawl-life
-								port:
-									number: 80
+    ingressClassName: traefik
+    rules:
+        - host: 172.20.10.11.sslip.io
+          http:
+            paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                    service:
+                        name: svc-clusterip-dep-brawl-life
+                        port:
+                            number: 80
