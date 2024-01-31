@@ -9,6 +9,6 @@ EXPOSE 8000
 
 RUN npm install
 
-ENTRYPOINT ["/bin/sh"]
+ENTRYPOINT [""]
 
 CMD ["npm","start"]
