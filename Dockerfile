@@ -1,4 +1,4 @@
-from node:erreurtest
+from node:alpine
 
 RUN mkdir -p /home/brawl-life
 WORKDIR /home/brawl-life
