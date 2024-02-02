@@ -4,7 +4,7 @@ metadata:
   name: dep-brawl-life
   namespace: $K8S_NAMESPACE
   labels:
-    app: brawl-life
+        app: brawl-life
 spec:
   replicas: 3
   selector:
