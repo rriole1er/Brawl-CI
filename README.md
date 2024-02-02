@@ -1,320 +1,38 @@
 # brawl-stars-stats*
 
-https://miro.com/welcomeonboard/TTJWZDBGb0owRXFqOGdteXUwQkxQdGR2YktkSjZVZUdhN3AyeUt5dDVwdlZoTWtWWDNnQ1BqTU1qbHJySG9GVHwzNDU4NzY0NTE2NTg0NjY3ODI0fDI=?share_link_id=547989370245
 
+# Flux CI/CD
 
-# CI gitlab build
+Nous possèdons 4 stages dans notre CI.
 
-Créeer un dockerFile :
+Les 4 stages permettent d'assurer des éléments importants de la Continuous Integration.
 
-le build
-````
-from node:alpine
+- Build
+- Test
+- Lint
+- Deploy
 
-RUN mkdir -p /home/brawl-life
-WORKDIR /home/brawl-life
+Ces différents stages nous permettent de valider plusieurs points :
 
-COPY . .
+- Le build est le stage qui envoie notre image écrite sur le Dockerfile, sur le registry de l'iut : Harbor.
 
-EXPOSE 8000
+- Le test est le stage qui lance naîvement les test écrits dans le projet dans le répertoire tests/test.js. Ce sont des test classique, qui verifie un appel Api utilisé dans l'application.
 
-RUN npm install
+- Le lint est le stage qui vérifie la qualité de code du projet js. Il verifie notamment tous les fichiers js du projet (routes/, tests/ et public/js). Nous utilisons la norme de base de la bibliothèque eslint (recommended). 
 
-cmd ['node','app.js']
-````
+- Le deploy est le stage qui lance le déploiement défini dans le /kubernetes. Ce dossier est composé d'un déploiement classique (à partir de notre image récupéré via Harbor).
 
-lancer le build :
+Il faut savoir, que n'importe quel échec d'un stage, bloque le lancement du prochain.
 
-```
-docker build -t brawl-life .
-```
+Nous effectuons les stages dans cet ordre :
 
-lancer le run :
+ Build ---> Test ----> Linter ----> Deploy
 
---rm (supprime à la fin)
+Autrement dit, s'il y a une erreur dans le build de notre image, on skip tous les autres stages.
+Si un test fonctionnel ne passe pas, le stage test bloque le lancement des autres stages.
+S'il y une erreur de qualité de code, par exemple l'oubli d'un point virgule sachant que nous somme dans un projet js et que son utilisation est donc libre. Le stage bloque le deploiement
+Enfin, s'il y a une erreur dans le déploiement par exemple une mauvaise indentation dans le fichier yaml, le deploiement est abandonné.
 
-````
-docker run --rm -p 8000:8000 brawl-life
-````
 
-# CI gitlab test et linter
-
-on test les test (lol)
-````
-docker run --rm -p 8000:8000 brawl-life npm test
-````
-
-Créer la CI ---> gitlab-ci.yml
-
-Se rendre sur harbor/dockerhub pour enregister nos images docker (pour pas les perdre).
-
-On créer un robot qui va faire des trucs sur notre repo 
-
-On choppe son token et on le fout dans gitlab
-
-"AJOUTER UNE VARIABLE DANS SETTINGS/CI-CD/VARIABLE"
-
-Key -- > CI_ROBOT_TOKEN
-
-Value -- > token du robot
-
-Key -- > CI_REGISTRY_ROBOT_NAME
-
-Value -- > nom du robot sur harbor 
-
-Key -- > CI_REGISTRY
-
-Value -- > url de harbor (forge-registry.iut-larochelle.fr)
-
-Key -- > CI_PROJECT
-
-Value -- > nom du projet sur harbor (brawl-life)
-
-
-.gitlab-ci.yml
-
-````
-default:
-  image: docker:24.0.5
-  services:
-    - docker:24.0.5-dind
-
-stages:          # List of stages for jobs, and their order of executionj
-  - build
-  - test
-  - lint
-
-variables:
-  DOCKER_IMAGE_TAG: brawl-stars-stats:$CI_COMMIT_SHORT_SHA      #nom dans le registry
-  DOCKER_IMAGE_NAME: $CI_REGISTRY/$CI_PROJECT/$DOCKER_IMAGE_TAG   #image docker avec lien vers registry
-
-
-.docker-context:
-  before_script:
-  - docker login -u $CI_REGISTRY_ROBOT_NAME -p $CI_ROBOT_TOKEN $CI_REGISTRY
-  - docker info
-
-
-build-job:       # This job runs in the build stage, which runs first.
-  stage: build
-  tags:
-    - kubernetes
-  extends : [.docker-context]
-  script:
-    - docker build -t $DOCKER_IMAGE_NAME .
-    - docker push $DOCKER_IMAGE_NAME
-
-unit-test-job:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
-  tags:
-    - kubernetes
-  extends : [.docker-context]
-  script:
-    - docker run $DOCKER_IMAGE_NAME npm run test
-  
-
-lint-test-job:   # This job also runs in the test stage.v
-  stage: lint    # It can run at the same time as unit-test-job (in parallel).
-  tags:
-    - kubernetes
-  extends : [.docker-context]
-  script:
-    - docker run $DOCKER_IMAGE_NAME npm run lint
-````
-
-
-# CI gitlab deployement communication 
-
-Maintenant qu'on a fait la CI, on fait la CD.
-Pour ce faire, on utilie des pods, les pods sont des trucs qui heberge les sites web. D'habitude on vole le cluster de l'iut, mais il risque de nous clear le cerveau.
-Donc on fait notre propre cluster sur des raspberry qui tournent à 3, histoire que si le master qui tiens notre projet cannent, les 2 autres le ressuscite (le relais).
-
-A ajouter dans le .gitlab-ci.yml :
-
-````
-variables:
-  DOCKER_IMAGE_TAG: brawl-stars-stats:$CI_COMMIT_SHORT_SHA      #nom dans le registry
-  DOCKER_IMAGE_NAME: $CI_REGISTRY/$CI_PROJECT/$DOCKER_IMAGE_TAG   #image docker avec lien vers registry
-  KUBE_CONTEXT: rriole/brawl-stars-stats:k3s
-  K8S_NAMESPACE: ns-brawl-life
-  KUBECTL: "kubectl --insecure-skip-tls-verify"
-
-
-deployments:
-  stage: deploy
-  tags:
-    - kubernetes
-  image: 
-    name: chapphub/kubect #bitnami/kubectl:latest
-  script:
-    - $KUBECTL config get-contexts
-    - $KUBECTL config use-context $KUBE_CONTEXT
-    - $KUBECTL delete --ignore-not-found=true secret gitlab-auth --namespace=$K8S_NAMESPACE
-    - $KUBECTL create secret docker-registry gitlab-auth --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_ROBOT_NAME --docker-password=$CI_ROBOT_TOKEN --namespace=$K8S_NAMESPACE
-````
-
-On a créer un agent kubernetes (un poto qui parle avec gitlab / notre cluster), pour se donner des infos.
-
-On ajouté une variable (l'agent gitlab) et pour l'instant on affiche les namespaces de notre cluster kubernetes dans le terminal (get ns)
-
-
-# CI gitlab deployement fichier 
-
-On doit créer un deployement (un container tah docker nginx pour faire tourner le site).
-
-Puis on crée un service pour pouvoir exposer le deployement.
-
-Enfin, un ingress pour faire sortir le service dehors.
-
-VOila Bisous
-
-
-dep-brawl-life
-````
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: dep-brawl-life
-  namespace: $K8S_NAMESPACE
-  labels:
-    app: brawl-life
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: brawl-life
-  template:
-    metadata:
-      labels:
-        app: brawl-life
-    spec:
-      containers:
-      - name: brawl-life
-        image: $DOCKER_IMAGE_NAME
-        ports:
-          - containerPort: 8000
-      imagePullSecrets:
-      - name: gitlab-auth
-````
-
-ing-app-brawl-life
-````
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-    name: ing-app-brawl-life
-    namespace: $K8S_NAMESPACE
-spec:
-    ingressClassName: traefik
-    rules:
-        - host: 172.20.10.11.sslip.io
-          http:
-            paths:
-              - path: /
-                pathType: Prefix
-                backend:
-                    service:
-                        name: svc-clusterip-dep-brawl-life
-                        port:
-                            number: 80
-````
-
-svc-clusterip-dep-brawl-life
-````
-apiVersion: v1 
-kind: Service 
-metadata:
-  name: svc-clusterip-dep-brawl-life 
-  namespace: $K8S_NAMESPACE
-spec:
-  type: ClusterIP 
-  selector:
-    app: brawl-life 
-  ports:
-    - port: 80
-      targetPort: 8000
-````
-
-
-On met donc à jour le .gitlab-ci.yml
-
-````
-default:
-  image: docker:24.0.5
-  services:
-    - docker:24.0.5-dind
-
-stages:          # List of stages for jobs, and their order of executionj
-  - build
-  - test
-  - lint
-  - deploy
-
-variables:
-  DOCKER_IMAGE_TAG: brawl-stars-stats:$CI_COMMIT_SHORT_SHA      #nom dans le registry
-  DOCKER_IMAGE_NAME: $CI_REGISTRY/$CI_PROJECT/$DOCKER_IMAGE_TAG   #image docker avec lien vers registry
-  KUBE_CONTEXT: rriole/brawl-stars-stats:k3s
-  K8S_NAMESPACE: ns-brawl-life
-  KUBECTL: "kubectl --insecure-skip-tls-verify"
-
-.docker-context:
-  before_script:
-  - docker login -u $CI_REGISTRY_ROBOT_NAME -p $CI_ROBOT_TOKEN $CI_REGISTRY
-  - docker info
-
-
-build-job:       # This job runs in the build stage, which runs first.
-  stage: build
-  tags:
-    - kubernetes
-  extends : [.docker-context]
-  script:
-    - docker build -t $DOCKER_IMAGE_NAME .
-    - docker push $DOCKER_IMAGE_NAME
-
-unit-test-job:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
-  tags:
-    - kubernetes
-  extends : [.docker-context]
-  script:
-    - docker run $DOCKER_IMAGE_NAME npm run test
-  
-
-lint-test-job:   # This job also runs in the test stage.v
-  stage: lint    # It can run at the same time as unit-test-job (in parallel).
-  tags:
-    - kubernetes
-  extends : [.docker-context]
-  script:
-    - docker run $DOCKER_IMAGE_NAME npm run lint
-
-deployments:
-  stage: deploy
-  tags:
-    - kubernetes
-  image: 
-    name: chapphub/kubect #bitnami/kubectl:latest
-  script:
-    - $KUBECTL config get-contexts
-    - $KUBECTL config use-context $KUBE_CONTEXT
-    - $KUBECTL delete --ignore-not-found=true secret gitlab-auth --namespace=$K8S_NAMESPACE
-    - $KUBECTL create secret docker-registry gitlab-auth --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_ROBOT_NAME --docker-password=$CI_ROBOT_TOKEN --namespace=$K8S_NAMESPACE
-    - cat kubernetes/dep-brawl-life.yml | envsubst | $KUBECTL apply -f -
-    - cat kubernetes/svc-clusterip-dep-brawl-life.yml | envsubst | $KUBECTL apply -f -
-    - cat kubernetes/ing-app-brawl-life.yml | envsubst | $KUBECTL apply -f -
-````
-
-
-Une fois le deployement effectué côté CI, on a connecté les pods avec un réseau wifi spécifique (iPhone de Florent).
-Le site sera donc disponible seulement sur ce reseau. Il Faudrait ouvrir les ports du réseau pour pouvoir avoir accès 
-au site via internet.
-
-
-On a rencontré des problèmes de communication entre les pods, on a du créer un agent qui permet de parler entre eux. 
-
-Ensuite, les rapsberry sont en arm64 et les runners de gitlab (de l'iut) sont en amd64 donc on ne pouvait pas utiliser l'image buildé par les runners.
-
-On a donc fait notre propre runner sur le cluster de raspberry. Maitenant on build l'image dans une architecture qui correspond à notre endroit ou on l'utilise. (rapsberry)
-
+Si tous les stages passent, on peut consulter le site via l'adresse ip "172.20.10.11.sslip.io". Cependant, les raspberry que nous utilisons doivent être dans un même réseau pour pouvoir déploier.  
 
