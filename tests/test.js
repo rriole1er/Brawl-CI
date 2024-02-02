@@ -14,6 +14,5 @@ test('should return Brawl Stars player data', async () => {
   expect(mockResponse).toBeDefined();
   expect(mockResponse).toHaveProperty('name');
   expect(mockResponse).toHaveProperty('tag',playerTag)
-  // Add more assertions based on the structure of your expected response
 
 });

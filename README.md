@@ -85,17 +85,21 @@ stages:          # List of stages for jobs, and their order of executionj
   - lint
 
 variables:
-  DOCKER_IMAGE_TAG: bralw-stars-stats:$CI_COMMIT_SHORT_SHA      #nom dans le registry
+  DOCKER_IMAGE_TAG: brawl-stars-stats:$CI_COMMIT_SHORT_SHA      #nom dans le registry
   DOCKER_IMAGE_NAME: $CI_REGISTRY/$CI_PROJECT/$DOCKER_IMAGE_TAG   #image docker avec lien vers registry
+
+
+.docker-context:
+  before_script:
+  - docker login -u $CI_REGISTRY_ROBOT_NAME -p $CI_ROBOT_TOKEN $CI_REGISTRY
+  - docker info
 
 
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
   tags:
-    - docker
-  before_script:
-  - docker login -u $CI_REGISTRY_ROBOT_NAME -p $CI_ROBOT_TOKEN $CI_REGISTRY
-  - docker info
+    - kubernetes
+  extends : [.docker-context]
   script:
     - docker build -t $DOCKER_IMAGE_NAME .
     - docker push $DOCKER_IMAGE_NAME
@@ -103,7 +107,8 @@ build-job:       # This job runs in the build stage, which runs first.
 unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   tags:
-    - shell
+    - kubernetes
+  extends : [.docker-context]
   script:
     - docker run $DOCKER_IMAGE_NAME npm run test
   
@@ -111,7 +116,8 @@ unit-test-job:   # This job runs in the test stage.
 lint-test-job:   # This job also runs in the test stage.v
   stage: lint    # It can run at the same time as unit-test-job (in parallel).
   tags:
-    - shell
+    - kubernetes
+  extends : [.docker-context]
   script:
     - docker run $DOCKER_IMAGE_NAME npm run lint
 ````
@@ -127,24 +133,24 @@ A ajouter dans le .gitlab-ci.yml :
 
 ````
 variables:
-  DOCKER_IMAGE_TAG: bralw-stars-stats:$CI_COMMIT_SHORT_SHA      #nom dans le registry
+  DOCKER_IMAGE_TAG: brawl-stars-stats:$CI_COMMIT_SHORT_SHA      #nom dans le registry
   DOCKER_IMAGE_NAME: $CI_REGISTRY/$CI_PROJECT/$DOCKER_IMAGE_TAG   #image docker avec lien vers registry
   KUBE_CONTEXT: rriole/brawl-stars-stats:k3s
-  #KUBECTL: "kubectl --insecure-skip-tls-verify"
-  #K8S_NAMESPACE: $CI_NAMESPACE_PROJECT
+  K8S_NAMESPACE: ns-brawl-life
+  KUBECTL: "kubectl --insecure-skip-tls-verify"
 
 
 deployments:
   stage: deploy
   tags:
-    - docker
+    - kubernetes
   image: 
-    name: bitnami/kubectl:latest
-    entrypoint: ['']
+    name: chapphub/kubect #bitnami/kubectl:latest
   script:
-    - kubectl config get-contexts
-    - kubectl config use-context $KUBE_CONTEXT
-    - kubectl get ns
+    - $KUBECTL config get-contexts
+    - $KUBECTL config use-context $KUBE_CONTEXT
+    - $KUBECTL delete --ignore-not-found=true secret gitlab-auth --namespace=$K8S_NAMESPACE
+    - $KUBECTL create secret docker-registry gitlab-auth --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_ROBOT_NAME --docker-password=$CI_ROBOT_TOKEN --namespace=$K8S_NAMESPACE
 ````
 
 On a créer un agent kubernetes (un poto qui parle avec gitlab / notre cluster), pour se donner des infos.
@@ -152,7 +158,7 @@ On a créer un agent kubernetes (un poto qui parle avec gitlab / notre cluster),
 On ajouté une variable (l'agent gitlab) et pour l'instant on affiche les namespaces de notre cluster kubernetes dans le terminal (get ns)
 
 
-# CI gitlab deployement communication
+# CI gitlab deployement fichier 
 
 On doit créer un deployement (un container tah docker nginx pour faire tourner le site).
 
@@ -228,6 +234,77 @@ spec:
     - port: 80
       targetPort: 8000
 ````
+
+
+On met donc à jour le .gitlab-ci.yml
+
+````
+default:
+  image: docker:24.0.5
+  services:
+    - docker:24.0.5-dind
+
+stages:          # List of stages for jobs, and their order of executionj
+  - build
+  - test
+  - lint
+  - deploy
+
+variables:
+  DOCKER_IMAGE_TAG: brawl-stars-stats:$CI_COMMIT_SHORT_SHA      #nom dans le registry
+  DOCKER_IMAGE_NAME: $CI_REGISTRY/$CI_PROJECT/$DOCKER_IMAGE_TAG   #image docker avec lien vers registry
+  KUBE_CONTEXT: rriole/brawl-stars-stats:k3s
+  K8S_NAMESPACE: ns-brawl-life
+  KUBECTL: "kubectl --insecure-skip-tls-verify"
+
+.docker-context:
+  before_script:
+  - docker login -u $CI_REGISTRY_ROBOT_NAME -p $CI_ROBOT_TOKEN $CI_REGISTRY
+  - docker info
+
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+  tags:
+    - kubernetes
+  extends : [.docker-context]
+  script:
+    - docker build -t $DOCKER_IMAGE_NAME .
+    - docker push $DOCKER_IMAGE_NAME
+
+unit-test-job:   # This job runs in the test stage.
+  stage: test    # It only starts when the job in the build stage completes successfully.
+  tags:
+    - kubernetes
+  extends : [.docker-context]
+  script:
+    - docker run $DOCKER_IMAGE_NAME npm run test
+  
+
+lint-test-job:   # This job also runs in the test stage.v
+  stage: lint    # It can run at the same time as unit-test-job (in parallel).
+  tags:
+    - kubernetes
+  extends : [.docker-context]
+  script:
+    - docker run $DOCKER_IMAGE_NAME npm run lint
+
+deployments:
+  stage: deploy
+  tags:
+    - kubernetes
+  image: 
+    name: chapphub/kubect #bitnami/kubectl:latest
+  script:
+    - $KUBECTL config get-contexts
+    - $KUBECTL config use-context $KUBE_CONTEXT
+    - $KUBECTL delete --ignore-not-found=true secret gitlab-auth --namespace=$K8S_NAMESPACE
+    - $KUBECTL create secret docker-registry gitlab-auth --docker-server=$CI_REGISTRY --docker-username=$CI_REGISTRY_ROBOT_NAME --docker-password=$CI_ROBOT_TOKEN --namespace=$K8S_NAMESPACE
+    - cat kubernetes/dep-brawl-life.yml | envsubst | $KUBECTL apply -f -
+    - cat kubernetes/svc-clusterip-dep-brawl-life.yml | envsubst | $KUBECTL apply -f -
+    - cat kubernetes/ing-app-brawl-life.yml | envsubst | $KUBECTL apply -f -
+````
+
 
 Une fois le deployement effectué côté CI, on a connecté les pods avec un réseau wifi spécifique (iPhone de Florent).
 Le site sera donc disponible seulement sur ce reseau. Il Faudrait ouvrir les ports du réseau pour pouvoir avoir accès 
