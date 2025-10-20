@@ -1,5 +1,5 @@
 
-const apiKey = 'REDACTED_API_KEY';
+const apiKey = ''; // last api key is not available 
 
 async function fetchDataFromBrawlStarsLocal(playerTag) {
 
