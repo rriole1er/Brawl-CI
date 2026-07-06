@@ -129,7 +129,7 @@ réseau pour que le déploiement et l'exposition fonctionnent.
 ## Auteurs
 
 Projet réalisé dans un cadre scolaire (IUT) par l'équipe : Rémy Riole, Lucas Dubois,
-Tristan, et contributeurs.
+Florent Chappellier, et contributeurs.
 
 ## Licence
 
