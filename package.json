@@ -1,15 +1,15 @@
 {
-  "name": "js-getting-started",
+  "name": "brawl-stars-stats",
   "version": "0.3.0",
-  "description": "A sample Node.js app using Express 4",
+  "description": "Application web de visualisation de statistiques Brawl Stars (trophées, battle logs, graphiques).",
   "engines": {
     "node": "18.x || 16.x"
   },
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
-    "lint" : "eslint routes/*.js tests/*.js public/js/*.js app.js"
+    "lint": "eslint routes/*.js tests/*.js public/js/*.js app.js"
   },
   "jest": {
     "testEnvironment": "node",
@@ -40,12 +40,15 @@
     "tape": "^4.7.0"
   },
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "git+https://github.com/rriole1er/Brawl-CI.git"
   },
   "keywords": [
     "node",
-    "express"
+    "express",
+    "brawl-stars",
+    "stats"
   ],
   "license": "MIT",
-  "author": ""
+  "author": "Rémy Riole"
 }

@@ -1,14 +1,12 @@
-from node:alpine
+FROM node:18-alpine
 
-RUN mkdir -p /home/brawl-life
 WORKDIR /home/brawl-life
+
+COPY package*.json ./
+RUN npm install
 
 COPY . .
 
 EXPOSE 8000
 
-RUN npm install
-
-ENTRYPOINT [""]
-
-CMD ["npm","start"]
+CMD ["npm", "start"]
